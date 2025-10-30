@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <title>06 Excercises</title>
+</head>
+
+<body>
+
+  
+
+
+<script>
+
+function greet(name){
+  if (name === undefined){
+    console.log(`Hello there!`);
+  }else{
+  console.log(`Hello ${name}!`);
+  }
+}
+
+greet('Marco');
+
+
+function convertToFahrenheit(Celsius){
+fahrenheit = (Celsius*9/5)+32;
+}
+
+convertToFahrenheit(34);
+console.log(fahrenheit);
+
+
+let temperature;
+function convertTemperature(degrees, unit){
+temperature = (unit === 'C')? (degrees*9/5)+32 : (degrees-32)*5/9;
+}
+
+convertTemperature(93.2, 'F')
+console.log(temperature);
+
+
+let conversion;
+function convertLength(length, from, to){
+if (from === to){
+  conversion = length;
+} else if (from === 'miles'){
+  conversion = length /1.6; 
+} else if (from === 'km') {
+  conversion = length * 1.6;
+} else {
+  conversion = `invalid unit: "${from}"`
+}
+}
+
+convertLength(50, 'lbs', 'miles')
+console.log(conversion);
+
+</script>
+</body>
+
+</html>

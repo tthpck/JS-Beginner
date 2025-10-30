@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <title>06 Excercises</title>
+</head>
+
+<body>
+
+  <p>What's your guess?</p>
+<button onclick="
+userGuess = 'Head';
+let randomNumber = Math.random();
+let coinFlip = randomNumber>=0.5? 'Head' : 'Tail';
+let result = userGuess===coinFlip? 'Hai indovinato!' : 'Hai perso!';
+alert(result);
+" 
+>Head</button>
+
+<button onclick="
+userGuess = 'Tail';
+let randomNumber = Math.random();
+let coinFlip = randomNumber>=0.5? 'Head' : 'Tail';
+let result = userGuess===coinFlip? 'Hai indovinato!' : 'Hai perso!';
+alert(result);
+" >Tail</button>
+
+<script>
+const hour = 25
+let message;
+const myName = 'Marco';
+
+if (hour>=6 && hour < 12) {
+  message = 'good morning';
+}else if (hour>=12 && hour<=17){
+  message = 'good afternoon';
+} else message = 'good night';
+console.log(`${message} ${myName}!`);
+
+
+
+const age = 67;
+let displayMessage;
+const isHoliday = false;
+
+if ((age <12 || age>65) && isHoliday === false){
+  displayMessage = 'discount';
+}else displayMessage = 'no discount';
+console.log(displayMessage);
+
+
+
+let userGuess;
+
+
+
+
+
+</script>
+</body>
+
+</html>

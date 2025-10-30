@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>05 Calculator</title>
+  </head>
+  <body>
+
+
+    <button onclick="
+      pressButton(1);
+    "
+    >1</button>
+
+    <button onclick="
+     pressButton(2);
+     "
+    >2</button>
+
+    <button onclick="
+      pressButton(3);
+      "
+    >3</button>
+
+    <button onclick="
+    pressButton(' + ');
+      "
+    >+</button>
+
+    <button onclick="
+    pressButton('=');
+    "
+    >=</button>
+
+    <br></br>
+     <button onclick="
+    pressButton(4);
+    "
+    >4</button>
+
+     <button onclick="
+    pressButton(5);
+    "
+    >5</button>
+
+     <button onclick="
+    pressButton(6);
+    "
+    >6</button>
+
+     <button onclick="
+    pressButton(' - ');
+    "
+    >-</button>
+    
+         <button onclick="
+    pressButton(' * ');
+    "
+    >*</button>
+    
+    
+
+    <script>
+    let calculation = '';
+    
+    function pressButton(value){
+      if (value !== '='){
+      calculation +=value;
+            } else {
+        calculation = eval(calculation);
+      }
+    console.log(calculation)
+    }
+
+
+    </script>
+  </body>
+</html>

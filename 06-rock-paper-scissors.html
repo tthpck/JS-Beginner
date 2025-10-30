@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <title>Rock Paper Scissors</title>
+</head>
+
+<body>
+<h1>Rock Paper Scissors</h1>
+<button onclick="
+const userSelection = 'Rock';
+const randomNumber = Math.random();
+let computerSelection = '';
+if (randomNumber <0.33) {
+ computerSelection = 'Rock';
+} else if (randomNumber <= 0.66) {
+  computerSelection = 'Paper';
+} else {
+  computerSelection = 'Scissors';
+}
+if (computerSelection === 'Rock'){
+  alert(`You picked ${userSelection}, Computer picked ${computerSelection}, tie!`)
+} else if (computerSelection === 'Paper'){
+  alert(`You picked ${userSelection}, Computer picked ${computerSelection}, you lose!`)
+} else alert(`You picked ${userSelection}, Computer picked ${computerSelection}, you win!`);
+
+">Rock</button>
+
+<button onclick="
+const userSelection = 'Paper';
+const randomNumber = Math.random();
+let computerSelection = '';
+if (randomNumber <0.33) {
+ computerSelection = 'Rock';
+} else if (randomNumber <= 0.66) {
+  computerSelection = 'Paper';
+} else {
+  computerSelection = 'Scissors';
+}
+if (computerSelection === 'Rock'){
+  alert(`You picked ${userSelection}, Computer picked ${computerSelection}, you win!`)
+} else if (computerSelection === 'Paper'){
+  alert(`You picked ${userSelection}, Computer picked ${computerSelection}, tie!`)
+} else alert(`You picked ${userSelection}, Computer picked ${computerSelection}, you lose!`);
+
+">Paper</button>
+
+<button onclick="
+const userSelection = 'Scissors';
+const randomNumber = Math.random();
+let computerSelection = '';
+if (randomNumber <0.33) {
+ computerSelection = 'Rock';
+} else if (randomNumber <= 0.66) {
+  computerSelection = 'Paper';
+} else {
+  computerSelection = 'Scissors';
+}
+if (computerSelection === 'Rock'){
+  alert(`You picked ${userSelection}, Computer picked ${computerSelection}, you lose!`)
+} else if (computerSelection === 'Paper'){
+  alert(`You picked ${userSelection}, Computer picked ${computerSelection}, you win!`)
+} else alert(`You picked ${userSelection}, Computer picked ${computerSelection}, tie!`);
+
+">Scissors</button>
+
+
+
+
+
+
+<script>
+
+
+
+</script>
+</body>
+
+</html>
