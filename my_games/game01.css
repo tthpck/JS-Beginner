@@ -1,0 +1,65 @@
+#startgame {
+  color: black;
+  background-color: rgb(215, 247, 164);
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+  width: 300px;
+  height: 30px;
+}
+
+#number {
+  color: black;
+  background-color: lightblue;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+  width: 70px;
+  height: 30px;
+}
+
+#sign {
+  color: black;
+  background-color: lightgray;
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+  width: 70px;
+  height: 30px;
+}
+
+#restartgame {
+  color: black;
+  background-color: rgb(250, 196, 146);
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+  width: 300px;
+  height: 30px;
+  }
+
+  #showscore {
+  color: black;
+  background-color: rgb(124, 153, 247);
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+  width: 148px;
+  height: 30px;
+}
+
+  #restartscore {
+  color: black;
+  background-color: rgb(243, 145, 145);
+  border-width: 2px;
+  border-color: black;
+  border-style: solid;
+  cursor: pointer;
+  width: 148px;
+  height: 30px;
+  }

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <title>08 Excercise Head Tail</title>
+</head>
+
+<body>
+
+<button onclick = "userPicks('Head')
+">Head</button>
+
+<button onclick = "userPicks('Tail')
+">Tail</button>
+
+<br>
+
+<button onclick = "showScore()">Show Score</button>
+
+<script>
+ 
+let computerSelection = '';
+let score = localStorage.getItem(JSON.stringify('score')) || {
+  wins: 0,
+  losses: 0,
+}
+
+const computerPicks = () =>{
+(Math.random() >0.5)? computerSelection = 'Head' : computerSelection = 'Tail';
+}
+
+const userPicks = (selection) => {
+computerPicks();
+if (selection === 'Head' && computerSelection === 'Head'){
+  console.log(`The coin spins... it's ${computerSelection}! You win!`);
+  score.wins++
+} else if (selection === 'Tail' && computerSelection === 'Tail') {
+  console.log(`The coin spins... it's ${computerSelection}! You win!`);
+  score.wins++
+}  else {
+  console.log(`The coin spins... it's ${computerSelection}! You lose!`);
+  score.losses++
+}
+saveScore();
+}
+
+const saveScore = () => {
+ localStorage.setItem('score', JSON.stringify(score))
+}
+
+const showScore = () => {
+  console.log (`The score is, wins: ${score.wins}, losses: ${score.losses}`)
+}
+
+</script>
+</body>
+
+</html>

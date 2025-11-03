@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <title>09 DOM </title>
+</head>
+
+<body>
+
+<button >hello</button>
+
+<button class="js-button">second button</button>
+
+
+
+
+
+<script>
+console.log(document.querySelector('button').innerHTML);
+
+document.querySelector('button')
+  .innerHTML = 'Changed';
+
+
+const buttonElement = document.querySelector('.js-button');
+console.log(buttonElement);
+
+/*
+document.body.innerHTML = 'Hello';
+document.title = 'good job';
+
+
+console.log(document.title);
+console.log(document.body);
+console.log(typeof document.body);
+
+console.log(document.body.innerHTML);
+document.body.innerHTML = '<button> good job! </button>';
+
+document.querySelector()*/
+
+</script>
+</body>
+
+</html>

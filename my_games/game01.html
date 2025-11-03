@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="game01.css">
+    <title>Game</title>
+<style>
+  
+</style>
+
+</head>
+
+<body>
+
+  <button id='startgame' onclick=" computerPicks()
+  ">Start Game</button>
+
+  <br>
+
+  <button id='number' onclick = "clickButton('1')
+  ">1</button>
+
+  <button id='number' onclick = "clickButton('2')
+  ">2</button>
+
+  <button id='number' onclick = "clickButton('3')
+  ">3</button>
+
+  <button id= 'sign' onclick = "clickButton(' + ')
+  ">+</button>
+
+  <br>
+
+  <button id='number' onclick = "clickButton('4')
+  ">4</button>
+
+  <button id='number' onclick = "clickButton('5')
+  ">5</button>
+
+  <button id='number' onclick = "clickButton('6')
+  ">6</button>
+
+  <button id= 'sign' onclick = "
+  clickButton('=');
+  isChoiceCorrect();
+  computerPicks();
+  ">=</button> 
+
+  <br>
+
+  <button id='number' onclick = "clickButton('7')
+  ">7</button>
+
+  <button id='number' onclick = "clickButton('8')
+  ">8</button>
+
+  <button id='number' onclick = "clickButton('9')
+  ">9</button>
+
+  <button id= 'sign' onclick = "clickButton('C')
+  ">C</button> 
+
+  <br> 
+
+  <button id = 'restartgame' onclick="restartGame()
+  ">Restart Game</button> 
+
+  <br> 
+
+  <button id = 'showscore' onclick="showScore()
+  ">Show Score</button> 
+
+  <button id = 'restartscore' onclick="restartScore()
+  ">Restart Score</button> 
+
+    <script src="game01.js">
+
+
+
+    </script>
+
+    </body>
+</html>

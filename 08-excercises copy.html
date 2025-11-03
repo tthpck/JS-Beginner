@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="eng">
+<head>
+  <title>08 Excercises</title>
+</head>
+
+<body>
+
+<script>
+
+const product1 = {
+  name: 'BasketbAll',
+  price: 2095,
+  }
+
+  const product2 = {
+  name: 'cavallino',
+  price: 500,
+  }
+
+const product3 = {
+  name: 'cavallino',
+  price: 2095,
+  }
+
+  const product4 = {
+  name: 'cavallino',
+  price: 2095,
+  }
+
+  console.log(product1);
+
+  product1.price += 500;
+  console.log(product1); 
+
+  product1['delivery-time']= '3 days';
+  console.log(product1);
+
+function comparePrice(prod1, prod2){
+ (product1.price>product2.price)? console.log(product1.price) : console.log(product2.price)
+}
+comparePrice(product1, product2)
+
+function isSameProduct(comp1, comp2) {
+  if (product3.name === product4.name && product3.price === product4.price ) {console.log('same product')
+  } else {console.log('NOT same product');
+}
+}
+isSameProduct();
+
+console.log((product1.name).toLowerCase());
+console.log('test'.repeat(3));
+</script>
+</body>
+
+</html>

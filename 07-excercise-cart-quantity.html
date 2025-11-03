@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title>05 Excercise</title>
+  </head>
+  <body>
+    <p>Cart Quantity</p>
+    <button onclick="
+      console.log(`Cart Quantity: ${cartQuantity}`);
+    ">Show Quantity</button>
+
+    <button onclick="
+      updateCartQuantity(1)
+      "
+    > Add to Cart</button>
+
+    <button onclick="
+    updateCartQuantity(-1)
+      "
+    > Remove from Cart</button>
+
+    <button onclick="
+    updateCartQuantity(2)
+      "
+    >+2</button>
+
+    <button onclick="
+    updateCartQuantity(3)
+      "
+    >+3</button>
+
+    <button onclick="
+      cartQuantity = 0;
+      console.log(`Cart Quantity: ${cartQuantity}`);
+      "
+    >Reset Cart</button>
+
+    <script>
+let cartQuantity = 0;
+  
+function updateCartQuantity(cartChange){
+  if (cartQuantity + cartChange >10){
+    alert('cart reached 10!');
+    return;
+  } if 
+    (cartQuantity + cartChange <0){
+    alert('cart is empty!');
+    return;
+  } cartQuantity = cartQuantity += cartChange;
+  console.log(`Cart Quantity: ${cartQuantity}`)
+  }
+        
+    </script>
+  </body>
+</html>
