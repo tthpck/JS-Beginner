@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04 Arrays</title>
+</head>
+<body>
+  
+</body>
+
+
+<script>
+
+
+const numbers = [3, 4];
+
+
+//add to the end
+numbers.push(5,6);
+
+
+//add at the beginning
+numbers.unshift(1, 2);
+
+
+//add/replace at the middle
+numbers.splice([2], 0, 'a', 'b')
+
+console.log(numbers);
+
+/*
+//da l'indice di un elemento se esiste, senno da -1
+numbers.indexOf('cactus');
+console.log(numbers.indexOf('cactus'));
+
+
+numbers.indexOf('a');
+console.log(numbers.indexOf('a'));
+
+//trova l'ultimo indice in caso di duplicati
+numbers.lastIndexOf(1);
+
+
+//da true se l'elemento esiste nell'array
+numbers.includes(1)
+
+//includes non funziona con gli oggetti
+const courses = [
+  {id: 1, name: 'a'},
+  {id: 2, name: 'b'}
+]
+
+
+const course = courses.find(function(course) {
+  return course.name === 'a';
+})
+
+console.log(course)
+
+//stesso modo di scrivere la funzione di sopra con la arrow syntax
+const course1 = courses.find(course => course.name === 'a')
+
+
+
+
+const numbers1 = [1,2,3,4]
+
+//tira fuori l'ultimo elemento dell'array e lo rimuove
+const last = numbers.pop();
+console.log(last);
+
+//tira fuori il primo elemento dell'array e lo rimuove
+const first = numbers.shift();
+console.log(first);
+
+//rimuove un tot di valori dall'array (come sopra)
+numbers.splice(2,3)
+console.log(numbers1);
+
+
+//svuotare un'array
+
+let numbers2 = [1, 2, 3, 4];
+
+//metodo1
+let another = numbers2;
+numbers2 = [];
+
+//metodo2 - METODO MIGLIORE
+numbers2.length = 0
+
+
+//metodo3
+numbers2.splice(0,numbers.length);
+
+
+
+//concatenare e tagliare le arrays
+const first1 = [1, 2, 3];
+const second2 = [4, 5, 6]
+
+const combined = first1.concat(second2);
+console.log(combined);
+
+const spliced = combined.slice(2, 4)
+console.log(spliced);
+
+//oppure -> METODO MIGLIORE (SPREAD OPERATOR)
+
+const combined2 =  [...first1, 'bac', ...second2];
+
+const copy = [...combined2];
+console.log(copy);
+*/
+
+</script>
+</html>

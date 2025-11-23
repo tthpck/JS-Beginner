@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 Objects</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+
+// OBJECT ORIENTED PROGRAMMING
+
+
+const circle = {
+  radius: 55,
+  isVisible: true,
+  draw(){
+    console.log('first draw');
+  }
+};
+
+circle.draw(); // --> this is a method
+circle.draw1 = function() {console.log('second draw');
+};
+console.log(circle);
+delete circle.isVisible;
+console.log(circle);
+
+
+//IF A FUNCTION IS PART OF AN OBJECT, THE FUNCTION IS CALLED A METHOD;
+
+
+
+
+//FACTORY FUNCTION
+
+function createCircle (radius) {
+  return {
+    radius,
+    draw(){
+      console.log('this is a function')
+    }
+  }
+}
+
+const circle1 = createCircle(1);
+console.log(circle1);
+
+const circle2 = createCircle(2);
+console.log(circle2)
+
+
+
+
+//CONSTRUCTOR FUNCTION - si usa in Pascal Notation
+
+function CircleConstructor (radius) {
+  this.radius = radius;
+  this.draw = function() {
+    console.log('draw');
+  }  
+  }
+
+const circleTwo = new CircleConstructor(1);
+circleTwo.draw()
+
+
+
+//differenza tra FACTORY e CONSTRUCTOR FUNCTIONS
+
+//questo factory
+
+const myCircle = createCircleFactory(1);
+myCircle.secondDraw();
+
+function createCircleFactory(radius){
+  return {
+    radius,
+    secondDraw(){
+      console.log(`the ratius is ${radius}`)  
+   }
+  }
+}
+
+//questo constructor
+
+
+
+function CreateCircleConstructor(radius){
+  this.radius = radius,
+  this.thirdDraw = function(){
+    console.log('second constructor object')
+  }
+}
+
+const myCircle2 = new CreateCircleConstructor(2);
+myCircle2.thirdDraw();
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+</html>

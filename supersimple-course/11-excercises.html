@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>11 excercises</title>
+</head>
+<body>
+  
+
+
+<script>
+
+// const strings = ['ciao', 'hello', 'search', 'bau', 'search','hello', 'hello' ];
+
+// const stringscopy = [...strings];
+// console.log(stringscopy.reverse());
+// //console.log(strings.indexOf('search'))
+
+
+// function findIndex(array, word){
+//   for (let i= 0; i<array.length; i++){
+//   if (array[i] === word){
+//     return i;
+//       }
+//   }
+//   return -1;
+// }
+
+// console.log(findIndex(strings,'search'));
+
+
+// function removeHello(array){
+// let counter = 0;
+// for (let i= 0; i<array.length; i++){
+// if (array[i] === 'hello' && counter <= 2){
+//   array.splice(i,1)
+//   counter++;
+// }
+// }
+// console.log(array)
+// }
+
+// removeHello(strings);
+
+
+const strings = ['ciao', 'hello', 'search', 'bau', 'search','hello', 'hello' ];
+
+const newStrings =[];
+
+function findIndex(array){
+   for (let i= 0; i<array.length; i++){
+    if (!newStrings.includes(array[i]))
+      newStrings.push(array[i])
+    }
+   return newStrings;
+  }
+
+console.log(findIndex(strings));
+
+
+</script>
+</body>
+</html>

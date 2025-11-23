@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12-advanced functions</title>
+</head>
+<body>
+  
+  <script>
+
+//anonymous function (non permette hoisting)
+    const function1 = function(){}
+
+
+//METHOD - una function saved inside an object    
+const object = {
+  num: 2,
+  fun: function greeting(){
+    console.log('hello 3')
+  }
+};
+
+object.fun()
+
+
+
+//passing a function into another function
+function run(param){
+  param()
+}
+
+run(function(){
+  console.log('hello 4')
+});
+
+/*
+//setTimeout è built in - serve per runnare functions nel futuro. Prende 2 parametri, una funzione e un tempo
+setTimeout(function(){
+  console.log('timeout');
+}, 3000);
+//questa linea appare prima, dopo 3 secondi arriva quella di setTimeout
+console.log('next line')
+
+
+setInterval(function(){
+  console.log('interval')
+},3000);
+
+console.log('next line 2')
+
+*/
+
+//la funzione clearInterval() è per stoppare l'intervallo. Per farlo bisogna prima assegnare un ID (tramite variabile) alla funzione di setInterval, e mettere l'intervalId come parametro su clearInterval. Quindi esempio di sopra:
+
+let intervalId = setInterval(function(){
+  console.log('interval')
+},3000);
+
+console.log('next line 3')
+
+clearInterval(intervalId);
+
+
+
+
+
+[
+  'make dinner',
+  'make a2',
+  'make b3',
+].forEach(function(value, index){
+  if (value === 'make a2'){
+    return;
+  } else 
+  console.log(value, index);
+})
+
+  </script>
+</body>
+</html>

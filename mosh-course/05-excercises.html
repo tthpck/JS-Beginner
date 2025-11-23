@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+
+
+
+function sumValues(...numbers){
+ if (numbers.length === 0 && array.isArray(numbers[0])){
+  numbers = [...numbers[0]]
+ }
+ return numbers.reduce((a,b) => a + b);
+};
+
+console.log(sumValues(1, 4, 6, 8, 31));
+
+
+
+//circle.radius = 2
+
+const circle = {
+ radius: 2,
+ get area(){
+  return Math.PI * this.radius * this.radius;
+ } 
+}
+
+console.log(circle.area);
+
+
+</script>
+</html>

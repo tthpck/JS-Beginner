@@ -16,30 +16,40 @@
 
   <br>
 
-  <button id='number' onclick = "clickButton('1')
+  <p></p>
+
+<input placeholder="Write Here" class="js-input" onkeydown="keyboardWriting(event.key)">
+
+  <p class="js-message"></p>
+  <p class="js-message2"></p>
+
+  <p class="js-show-score"></p>
+
+  <br>
+  <button class='number' onclick = "clickButton('1')
   ">1</button>
 
-  <button id='number' onclick = "clickButton('2')
+  <button class='number' onclick = "clickButton('2')
   ">2</button>
 
-  <button id='number' onclick = "clickButton('3')
+  <button class='number' onclick = "clickButton('3')
   ">3</button>
 
-  <button id= 'sign' onclick = "clickButton(' + ')
+  <button class= 'sign' onclick = "clickButton(' + ')
   ">+</button>
 
   <br>
 
-  <button id='number' onclick = "clickButton('4')
+  <button class='number' onclick = "clickButton('4')
   ">4</button>
 
-  <button id='number' onclick = "clickButton('5')
+  <button class='number' onclick = "clickButton('5')
   ">5</button>
 
-  <button id='number' onclick = "clickButton('6')
+  <button class='number' onclick = "clickButton('6')
   ">6</button>
 
-  <button id= 'sign' onclick = "
+  <button class= 'sign' onclick = "
   clickButton('=');
   isChoiceCorrect();
   computerPicks();
@@ -47,21 +57,21 @@
 
   <br>
 
-  <button id='number' onclick = "clickButton('7')
+  <button class='number' onclick = "clickButton('7')
   ">7</button>
 
-  <button id='number' onclick = "clickButton('8')
+  <button class='number' onclick = "clickButton('8')
   ">8</button>
 
-  <button id='number' onclick = "clickButton('9')
+  <button class='number' onclick = "clickButton('9')
   ">9</button>
 
-  <button id= 'sign' onclick = "clickButton('C')
+  <button class= 'sign' onclick = "clickButton('C')
   ">C</button> 
 
   <br> 
 
-  <button id = 'restartgame' onclick="restartGame()
+  <button id = 'restartgame' onclick="restartGame(); restartScore()
   ">Restart Game</button> 
 
   <br> 

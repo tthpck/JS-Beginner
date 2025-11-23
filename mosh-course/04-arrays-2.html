@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04 2 Arrays</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+
+//joining arrays (aggiunge stringhe tra gli elementi dell'array)
+const numbers = [1, 2, 3];
+const joined = numbers.join('---')
+
+console.log (joined);
+
+
+//una specie di text to column che forma arrays
+const message = 'this is my first message';
+const parts = message.split(' ');
+console.log(parts);
+
+const combined = parts.join('**');
+console.log(combined);
+
+
+//SORT - funziona con numbers e strings
+const numbers2 = [2, 3, 1];
+
+numbers2.sort();
+console.log(numbers2);
+
+//REVERSE - funziona con numbers e strings
+numbers2.reverse();
+console.log(numbers2)
+
+
+//Per ordinare arrays con oggetti
+const courses = [
+  { id: 1, name: 'Node.js' },
+  { id: 2, name: 'javascriot' }
+];
+
+courses.sort(function(a, b) {
+const nameA = a.name.toLowerCase();
+const nameB = b.name.toLowerCase();
+
+if (nameA < nameB) return -1;
+if (nameA > nameB) return 1;
+return 0;
+
+});
+
+console.log(courses);
+
+
+//Controllare se tutti gli elementi di un'array soddisfano un requisito (in questo caso positivi)
+const array = [1, 2, 3];
+
+const allPositive = array.every(function(value){
+  return value >= 0;
+});
+
+console.log(allPositive);
+//per vedere se almeno UN elemento soddisfa, stessa cosa ma con array.some
+
+const array2 = [1, 3, -4, 5, -1];
+
+const atLeastOnePositive = array2.some(function(value2){
+  return value2 < 0;
+});
+console.log(atLeastOnePositive);
+
+
+//filtrare le array
+
+const filtered = array2.filter(function(value){
+  return value >= 0;
+});
+
+console.log(filtered);
+
+
+
+
+</script>
+</html>

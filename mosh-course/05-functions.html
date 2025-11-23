@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>05 Functions</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+
+
+//function declaration  
+//you can call this function BEFORE it is defined (JS moves the function declarations to the top ('Hoisting'))
+function walk(){
+  console.log('walk');
+}
+
+
+//function expression - si setta una variabile o constant a una function
+//you CANNOT call this function before it is defined
+let run = function() {
+  console.log('run');
+};
+let move = run;
+run();
+move()
+
+
+
+//REST PARAMETER (...parameter)   -- il rest parameter deve essere l'ultimo dichiarato in function
+function sum(discount, ...prices){
+ let total = prices.reduce((a,b) => a +b);
+ return total * (1-discount);
+}
+
+console.log(sum(0.1, 1, 2, 3, 4, 5, 6, 7));
+
+
+//DEFAULT PARAMETERS -- i default parameters devono stare sempre a destra, puoi anche averne piu di uno ma una volta dichiarato uno, tutti quelli a dx devono avere un default
+function interest(principal, year, rate = 2){
+  return principal * rate / 100 * year;
+}
+
+console.log(interest(10000, 5))
+
+
+//GETTERS and SETTERS - crei dei methods all'interno dell'oggetto
+
+
+const person = {
+  firstName: 'Marco',
+  lastName: 'Botalla',
+  get fullName(){
+    return `${person.firstName} ${person.lastName}` 
+  },
+  set fullName(xyz){
+    const parts = xyz.split(' ');
+    this.firstName = parts[0];
+    this.lastName = parts[1];
+  }
+};
+
+//getters => access properties in an object - basta mettere GET davanti alla funzione nell'oggetto. Una volta che si definisce il getter, si chiama la funzione come se fosse una property e non piu un method
+
+
+///setters => change (mutate) the properties of the object - si mette SET davanti alla funzione e poi si dichaira come definire le properità dell'oggetto. Cosi si puo' assegnare alla proprietà del set direttamente un valore
+
+person.fullName = 'john smith';
+
+console.log(person);
+
+
+
+//ERROR HANDLING  -- 
+
+const newPerson = {
+  firstName: 'Marco',
+  lastName: 'Botalla',
+  set fullName(xyz){
+    //qui sotto è error handling (se non è stringa non seguire con la function)
+    if (typeof value !== 'string') //return
+    //qui sotto è come si "throw an exception", se non si vuole usare return 
+      throw new Error('Value is not a string');
+
+
+    const parts = xyz.split(' ');
+    this.firstName = parts[0];
+    this.lastName = parts[1];
+  }
+};
+
+
+//try block  -- come si fa uscire che c'è un errore
+try {
+  newPerson.fullName = null;
+}
+catch (e){
+  console.log(e);
+}
+;
+
+console.log(newPerson);
+
+
+//SCOPE
+
+const message = 'hi';
+
+console.log(message);
+
+
+
+//THIS keyword
+//THIS is the object that is executing the current function
+
+
+const video = {
+  title: 'a',
+  play(){
+    console.log(this);
+  }
+};
+
+
+function Video(title){
+  this.title = title;
+  console.log(this);
+}
+
+console.log(video);
+const v = new Video('abc');
+
+</script>
+</html>

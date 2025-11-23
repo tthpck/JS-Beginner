@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 Excercises</title>
+</head>
+<body>
+  
+</body>
+
+
+<script>
+
+function newBlog(title, body, author, views, author, body, isLive){
+  return {
+    title,
+    body,
+    author,
+    views,
+    comments: {
+      author,
+      body,
+    },
+    isLive
+}
+}
+
+const blog1 = newBlog('ciao', 'hello', 'io', 1300, 'pippo', 'non mi piace' );
+console.log(blog1.comments);
+
+
+function NewBlogs(title, body, author){
+  this.title = title;
+  this.body= body;
+  this.author = author;
+  this.views = 0,
+  this.comments = [];
+  this.isLive = false;
+}
+
+let post = new NewBlogs('acciacchi1', 'sono bello', 'tu')
+console.log(post);
+
+
+const priceRanges = [
+  {labe: '$', tootltip : 'inexpensive', minPerPerson: 0,
+     maxPerPerson: 10},
+  {labe: '$$', tootltip : 'inexpensive', minPerPerson: 10,
+     maxPerPerson: 20},
+  {labe: '$$$', tootltip : 'inexpensive', minPerPerson: 20,
+     maxPerPerson: 50},
+];
+
+let averagePriceSelected = 15;
+for (let i = 0; i < priceRanges.length; i++){
+  if (averagePriceSelected > priceRanges[i].minPerPerson && averagePriceSelected <= priceRanges[i].maxPerPerson){
+    console.log(priceRanges[i].labe);
+  }
+}
+
+
+
+
+</script>
+</html>

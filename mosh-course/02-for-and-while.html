@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02 For and While</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+
+//FOR
+
+  // for (let i = 0; i<= 5; i++) {
+  // console.log('Hello');
+  // }
+
+  // for (let i = 0; i<= 5; i++) {
+  //   if (i % 2 !== 0) {
+  // console.log(i);
+  // }
+  // }
+
+
+  const person = {
+    name: 'Marco',
+    age: 30
+  };
+
+  for (let key in person)
+  console.log(person[key]);
+
+
+  const colors = ['red','green', 'blue','yellow'];
+  for (let key in colors)
+    console.log(colors[key]);
+
+//for-of migliore per arrays
+  for (let key of colors)
+  console.log(key) 
+
+//WHILE
+
+//   let y = 0
+
+//   while (y<= 5) {
+//     if (y % 2 !== 0) {
+//   console.log(y);
+//   y++;
+//   }
+//   }
+
+
+// let i = 0;
+// do {
+//   if (i % 2 === 0) console.log(i);
+//   i++;
+// } while (i <= 5);
+
+
+//break
+let k = 0;
+while (k<=10){
+  if (k===5) break;
+    console.log(k);
+  k++
+}
+
+//continue (fa skippare praticametne quando raggiunge la condizione, qui skippa quando i è un numero pari) - non si usa tanto
+let i = 0;
+while (i<=10){
+  if (i % 2 === 0) {
+    i++;
+    continue;
+  }  
+    console.log(i);
+  i++;
+}
+
+//BEWARE OF INFINTE LOOPS!
+
+
+let number1 = 0;
+let number2 = 8;
+
+function checkHigher() {
+  if (number1 > number2){
+    console.log(`the highest number is ${number1}`)
+  } else if (number2 > number1) {
+    console.log(`the highest number is ${number2}`)
+  } else 
+  console.log('numbers are equal')
+}
+
+checkHigher();
+
+
+let maxNumber = max(number1, number2);
+console.log(maxNumber);
+
+function max(n1, n2){
+  return (n1>n2)? n1 : n2;
+}
+
+let width = 100;
+let height = 150;
+
+function isLandscape(width, height){
+  return(width > height);
+}
+console.log(isLandscape(width, height));
+
+(isLandscape(width, height) === false)? console.log('ciao') : console.log ('bye');
+
+
+const output = fizzBuzz(16);
+console.log(output);
+
+function fizzBuzz(n){
+  if (n % 3 === 0 && n % 5 === 0){
+    return('FizzBuzz')
+  } else if (n % 3 === 0) {
+    return('Fizz');
+  } else if (n % 5 === 0) {
+    return('Buzz');
+  } else if (isNaN(n) || typeof n !== 'number') {    //qui sto dicendo la stessa cosa per dimostrare
+    return('Not a Number')
+  } else return n;
+}   
+
+
+
+// checkSpeed(71);
+
+// function checkSpeed(speed) {
+// let message;
+// const speedLimit = 70;
+// const kmPerPoint = 5;
+// const points = Math.floor((speed - speedLimit)/kmPerPoint);
+
+//   if (points <= 0) 
+//     message = `Ok speed`
+//     else if (points >= 12) {message = 'License suspended'
+//     }
+//     else {message = `points removed: ${points}`;
+//   }
+// console.log(message);
+// }
+
+
+// showNumber(10);
+
+// function showNumber(limit) {
+//   let t = 0;
+//   while (t< limit+1) {
+//     let numberType;
+//     (t % 2 === 0)? numberType = "pari" : numberType = "dispari";
+//     console.log(t, numberType)
+//     t++
+//   }
+// }
+
+
+const array = [1, 2, 3, null, '', undefined, 5];
+console.log(countTruthy(array));
+
+function countTruthy(array) {
+  let count = 0;
+  for (let key of array) {
+  (key)? count++ : count
+    console.log(key);
+  }
+  return count;
+}
+
+const movie = {
+  title: 'a',
+  releaseYear: 2018,
+  rating: 4.5,
+  director: 'b'
+}
+
+showProperties(movie);
+
+function showProperties(movie){
+  for (let key in movie){
+    if (typeof (movie[key]) === 'string') 
+    console.log(key, movie[key]);  
+  }
+}
+
+
+console.log(sum(10));
+
+function sum(limit){
+  let counter = 0;
+
+ for (let i= 0; i <= limit; i++) 
+    if (i % 3 === 0 || i % 5 === 0) 
+    counter++;
+  
+return counter;
+}
+  
+
+
+const marks = [75, 88, 99, 100, 80, 50];
+
+console.log(calculateGrade(marks));
+
+function calculateGrade(marks) {
+
+  function calculateAverage(){
+  let sum = 0;
+  let vote;
+  for (let key of marks) 
+  sum += key;
+  return (sum / marks.length);  
+}
+      if (calculateAverage() <= 59)
+      vote = 'F';
+      if (calculateAverage() > 59 && calculateAverage() <= 69)
+      vote = 'D';
+      if (calculateAverage() > 69 && calculateAverage() <= 79)
+      vote = 'C';
+      if (calculateAverage() > 80 && calculateAverage() <= 89)
+      vote = 'B';
+      if (calculateAverage() > 90 && calculateAverage() <= 100)
+      vote = 'A';
+
+  return vote;
+}
+
+
+
+showStars(5);
+
+function showStars(rows){
+  
+    for (let i = 1; i <= rows; i++){
+      let stars = '';
+      for (let k= 0; k <= i; k++) 
+      stars += '*';
+      console.log(stars);
+  }
+
+}
+
+
+showPrimes(9);
+
+function showPrimes(limit) {
+  for (let number = 2; number <= limit; number++){
+    let primeNumber = true;
+    for (let divider = 2; divider < number; divider++) {
+           if (number % divider === 0) {
+      primeNumber = false;
+      break;
+    }      
+}
+    if (primeNumber)
+    console.log(number)  ;
+}
+}
+
+</script>
+
+</html>

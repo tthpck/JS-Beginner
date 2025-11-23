@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App</title>
+</head>
+<body>
+  
+
+  <button class = "js-start" onclick="pressButton()">Start</button>
+  <button class = "js-cart" onclick="addToCart()">Add to Cart</button>
+  <p class = "js-cart-text">
+
+  </p>
+  <script>
+
+    let messagesNumber = 0;
+
+    function pressButton(){
+      const buttonText = document.querySelector('.js-start')
+      buttonText.innerHTML = 'Loading...'
+    setTimeout((function startButton() {
+      buttonText.innerHTML = 'Finished'
+    }), 2000);
+    messagesNumber += Math.floor((Math.random())*10)
+    }
+
+      let idTimeOut;
+
+      function addToCart(){
+        const cartText = document.querySelector('.js-cart-text');
+        cartText.innerHTML = 'Added to cart';
+
+        clearTimeout(idTimeOut);
+
+        //qui anche se sto solo dichiarando la variabile con la funzione la runna lo stesso
+        idTimeOut = setTimeout((function changeText(){
+          cartText.innerHTML = '';
+        }),2000)
+      }
+
+
+     setInterval((function(){
+       if (!(document.title === `App`)){
+        document.title = `App`
+       } else {
+        document.title = `(${messagesNumber}) new Messages`
+       }}),1000)
+
+      
+  </script>
+</body>
+</html>

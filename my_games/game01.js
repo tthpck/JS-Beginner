@@ -7,24 +7,35 @@
 
 let userNumber = '';
 let computerRandomNumber;
-let computerChoice;
+let computerChoice = null;
+const $message = document.querySelector('.js-message');
+const $message2 = document.querySelector('.js-message2');
+const $number = document.querySelector('.js-input');
+const $showScore = document.querySelector('.js-show-score');
+
 
 const score = JSON.parse(localStorage.getItem('score'))|| {
   correct: 0,
   wrong: 0,
-}
+};
 
 const saveScore = () => {
   localStorage.setItem('score', JSON.stringify(score));
 }
+ 
+  function updateMessage1 () {
+    if (computerChoice === null) 
+   $message.textContent = "Start the Game first!";
+  else $message.textContent ='';
+}
 
 const isChoiceCorrect = () => {
   if ((userNumber % computerChoice) === 0) {
-    console.log(`Well done!`);
+    $message.textContent = `Well done!`;
     score.correct++;
     saveScore()
   } else {
-    console.log(`Incorrect!`);
+    $message.textContent = `Incorrect!`;
     score.wrong++;
     saveScore();
   }
@@ -33,41 +44,59 @@ const isChoiceCorrect = () => {
 
 
 const clickButton = (button) =>{
-  if (computerChoice === null) {
-    console.log('Start the Game first!')}
+      if (computerChoice === null) {
+    $message.textContent = 'Start the Game first!'}
   else if (button === '=') {
-  userNumber = eval(userNumber);
-  console.log(userNumber) 
+    calculatesTotal();
   } else if (button === 'C') {
   userNumber = '';
-  console.log(0)
+  $number.value = ''
+  $message.textContent = '';
   } else {
   userNumber = userNumber+= button;
-  console.log(userNumber)
+  $number.value = userNumber;
+  $message.textContent = '';
   }
  }
 
  const computerPicks = () => {
-  computerRandomNumber = Math.random();
+    computerRandomNumber = Math.random();
   if (computerRandomNumber > 0.66){
     computerChoice = 7;
   } else if (computerRandomNumber < 0.33){
     computerChoice = 3;
   } else computerChoice = 11
-  console.log(`Next divider is number ${computerChoice}`)
+  $message2.textContent = `Next divider is number ${computerChoice}`;
+
  } 
 
  const restartGame = () => {
   computerChoice = null;
   userNumber = '';
-  console.log(0);
+  $number.value = '';
+  $message.textContent = '';
+  $message2.textContent = 'Start the Game!';
  }
 
  const showScore = () => {
-  console.log(`You gave ${score.correct} correct answers and ${score.wrong} incorrect answers this match`)
+  $showScore.textContent =`You gave ${score.correct} correct answers and ${score.wrong} incorrect answers this match`;
  }
 
  const restartScore = () => {
   score.correct = 0;
   score.wrong = 0;
+ $showScore.textContent =`Score reset!`;
+ }
+
+//DA COMPLETARE QUESTA FUNZIONE - NON FUNZIONA BENE INSERIMENTO DA TASTIERA
+ function keyboardWriting(key) {
+  if (typeof key === 'number')
+    $number.value = key;
+  else if (key === 'Enter') calculatesTotal()
+ }
+
+ function calculatesTotal(){
+  userNumber = eval(userNumber);
+  $number.value = userNumber;
+  isChoiceCorrect();
  }

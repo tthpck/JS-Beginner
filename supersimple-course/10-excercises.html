@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10-Excercises</title>
+
+
+  <style>
+
+    .basic-button {
+      color: white;
+      background-color: red;
+    }
+
+
+    .is-toggled {
+      color: black;
+      background-color: green;
+    }
+
+  </style>
+</head>
+<body>
+  
+  <button class="js-button1 basic-button" onclick="changeStatus('.js-button1')">Gaming</button>
+  <button class="js-button2 basic-button" onclick="changeStatus('.js-button2')">Music</button>
+  <button class="js-button3 basic-button" onclick="changeStatus('.js-button3')">Tech</button>
+  
+</body>
+
+
+<script>
+
+function changeStatus(button){
+  const selectedButton = document.querySelector(button);
+  if (selectedButton.classList.contains('is-toggled')){
+    selectedButton.classList.remove('is-toggled')
+  } else {
+  turnOffPreviousButtons();
+    selectedButton.classList.add('is-toggled');
+  }
+
+}
+
+function turnOffPreviousButtons(){
+  const previousButton = document.querySelector('.is-toggled');
+  if (previousButton)
+   previousButton.classList.remove('is-toggled')
+}
+
+</script>
+</html>

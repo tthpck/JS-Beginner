@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>12b Arrow Functions</title>
+</head>
+<body>
+  
+  <button class = "js-button" onclick="">
+    Click
+  </button>
+</body>
+
+<script>
+
+
+
+
+
+
+
+
+
+  const regularFunction = function(parameter1,parameter2){
+    console.log('hello');
+    return 5;
+  }
+
+//in pratica la arrow sostituisce soltanto il word 'function', ma funzionano nella stessa maniera. Le arrow function sono raccomandate quando si passa una function come parameter di un'altra function
+  const arrowFunction = (parameter1, parameter2) => {
+    console.log('hello');
+    return 5;
+  }
+
+  arrowFunction();
+
+
+  //alcune SHORTCUTS delle arrow functions.
+  //con un 1 solo parameter le bracket sono optional
+
+  const oneParam = param => {
+    console.log(param+1)
+  }
+  oneParam(2);
+
+  // quando hanno solo una linea in curly brackets, si possono levare e si mettono sulla stessa riga
+  const oneLine = () => 2+3;
+
+  console.log(oneLine());
+
+
+[
+  'make dinner',
+  'make a2',
+  'make b3',
+].forEach((value, index) => {
+  if (value === 'make a2'){
+    return;
+  } else 
+  console.log(value, index);
+})
+
+
+const object2 = {
+    method: () => {
+      
+    },
+
+    // per gli objects invece di scrivere le function con arrow come sopra, hanno una shortcut built in chiamata short hand method, che permette di scrivere come sotto
+    method () {},
+};
+
+
+  const buttonElement = document.querySelector('.js-button');
+
+  const eventListener = () => {console.log('click')}
+  //addeventListener è un method built in e ha 2 parameter, l'event (come click), e cosa farà (function o altro), e si puo' usare un'arrow function . ATTENZIONE. Non basta fare runnare una funzione come secondo parametro, si deve proprio creare una funzione, che puo' avere all'interno un'altra function
+
+
+  buttonElement.addEventListener('click', eventListener)
+
+  //addEventListener ha vantaggi, perchè ci permette di aggiungere piu' azioni ad un evento ad esempio:
+
+    buttonElement.addEventListener('click', () => {console.log('click2')})
+
+    //si possono anche rimuovere gli event. ha due parametri, l'evento e poi si deve mettere la stessa identica funzione del primo evento. Non basta passare il testo uguale, deve proprio essere la stessa funzione
+
+    buttonElement.removeEventListener('click', eventListener);
+
+
+
+
+    
+</script>
+</html>

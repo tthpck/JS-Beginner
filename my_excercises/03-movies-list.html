@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<input onkeydown="keyboardEvent(event.key)">
+<button>Add Movie</button>
+
+
+
+<p class= "js-movies-list">Movies List</p>
+
+
+<P id = 'js-wish-list'>Wish List</P>
+
+
+
+<P id = 'js-watched'>Watched</P>
+
+<button class= "js-movies0"></button>
+<button class= "js-movies"></button>
+<button class= "js-movies"></button>
+<button class= "js-movies"></button>
+
+
+<body>
+  
+</body>
+
+<script>
+
+
+  let movies = [
+  { title: 'Inception', year: 2010, rating: 9 },
+  { title: 'Avatar', year: 2009, rating: 6 },
+  { title: 'Lord of The Rings', year: 2000, rating: 10 },
+
+  { title: 'harry Potter', year: 2011, rating: 9.5 },
+  { title: 'Dune', year: 2025, rating: 4 },
+];
+
+let wishlist = [];
+let watched = [];
+
+
+
+function addMovie(title, year, rating) {
+  movies.push({title: title, year: year, rating: rating, })
+}
+
+addMovie('Indiana Jones', 1999, 3)
+addMovie('King Kong', 2016, 7)
+
+
+
+function removeMovie(list, title) {
+  for (let i = 0; i<list.length; i++)
+  if (list[i].title === title)
+  list.splice(i,1)
+}
+
+//removeMovie(movies, 'Dune');
+
+
+
+
+function findMovie(list, title) {
+ for (let i = 0; i<list.length; i++)
+ if (list[i].title === title){
+  console.log('found')}  
+  console.log('notfound')
+  return;
+}
+
+findMovie(movies, 'haaaarry Potter');
+
+
+function sortByYear(list) {
+  list.sort((a,b) => a.year - b.year)
+  console.log(list);
+}
+
+
+
+
+function sortByRating(list) {
+  list.sort((a,b) => a.rating - b.rating)
+  list.reverse();
+  console.log(list);
+}
+
+sortByRating(movies);
+
+
+function filterByRating(list, min) {
+  const filtered = list.filter((a) => a.rating >= min );
+  console.log(filtered)
+}
+
+//filterByRating(movies, 8)
+
+
+
+function moveMovie(list, title, newPosition) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].title === title) {
+      let removed = list.splice(i,1)[0]
+      list.splice(newPosition,0,removed)
+    }
+   }
+}
+
+moveMovie(movies, 'Dune', 0);
+console.log(movies);
+
+
+
+function addToWishlist(list, title) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].title === title) {
+  wishlist.push(list[i])
+}
+}
+}
+
+addToWishlist(movies, 'Lord of The Rings');
+addToWishlist(movies, 'Dune');
+console.log(wishlist);
+
+
+
+
+function markAsWatched(list, title) {
+  for (let i = 0; i < list.length; i++) {
+    if (list[i].title === title) {
+  watched.push(list[i])
+}
+}
+}
+
+markAsWatched(movies, 'Dune')
+
+markAsWatched(movies, 'Inception')
+console.log(watched);
+
+
+
+document.querySelector('.js-movies-list').innerHTML = movies.map(m => `${m.title} (${m.year}) rating: ${m.rating}`).join('<br>');
+
+document.querySelector('#js-wish-list').innerHTML = wishlist.map((m) => `${m.title}`).join('<br>')
+
+document.querySelector('#js-watched').innerHTML = watched.map((m) => `${m.title}`).join('<br>')
+
+document.querySelector('.js-movies0').innerHTML = movies[0].title;
+sortByYear(movies);
+
+
+</script>
+</html>

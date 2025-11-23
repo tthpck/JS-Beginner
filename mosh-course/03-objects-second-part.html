@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03 Second Part</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+
+
+//factory object
+function createFactory(radius){
+  return {
+    radius,
+    draw: function(){
+      console.log('draw Factory object')
+    }
+  }
+}
+
+const circle = createFactory(199);
+console.log(circle);
+
+
+//constructor object
+
+function CreateConstructor (radius) {
+  this.radius = radius;
+  this.draw2 = function(){
+    console.log('draw Constructor Object')
+  }
+}
+
+const circleConstructor = new CreateConstructor(88);
+console.log(circleConstructor);
+
+CreateConstructor.call({}, 1)
+
+
+
+
+// properteis of an object
+
+const test = {
+  radius: 1,
+  draw () {
+    console.log('draw');
+  }
+}
+
+for (let key in test)
+  console.log(test[key]);
+
+for (let key of Object.keys(test)) //Object è built in constructor
+console.log(key);
+
+
+// const another = Object.assign({
+//     color: 'yellow'
+// }, test);
+
+// console.log(another);
+
+
+const anotherOne = {...test, color:'yellow'};   //questo è il modo piu elegante per clonare o combinare piu oggetti
+console.log(anotherOne);
+
+//Message methods
+
+const message = 'This is my first message';
+console.log(message.length);
+message[0];
+message.includes('my');
+message.endsWith()
+
+//DATE
+
+const now = new Date();
+const date1 = new Date('May 11 2018 09:00');
+const date2 = new Date(2025, 4, 11, 9)
+
+console.log(date1);
+console.log(date2);
+
+
+console.log(now.setFullYear(2024));
+
+</script>
+</html>

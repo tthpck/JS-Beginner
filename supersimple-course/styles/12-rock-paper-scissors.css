@@ -1,0 +1,41 @@
+body {
+        color: white;
+        background-color: black;
+        font-family: arial;
+        font-weight: bold;
+        font-size: 25px;
+      }
+
+      .score-text{
+        font-weight: normal;
+        font-size: 15px;        
+      }
+      
+      .reset-score, 
+      .auto-play{
+        padding: 8px 15px;
+        cursor: pointer;
+      }
+
+
+      .move-icon{
+        border: none;
+        background-color: transparent;
+        height: 120px;
+        width: 120px;
+        border: 3px solid;
+        border-radius: 60px;
+        border-color: white;
+        align-items: center;
+        }
+
+        .emoji{
+          height: 50px;
+
+        }
+ 
+        .text-result{
+          font-family: arial;
+          font-size: 20px;
+          margin-top: 60px;
+        } 

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02</title>
+</head>
+<body>
+  
+</body>
+
+<script>
+
+function createBook(title, author){
+  return {
+    title,
+    author,
+    describe(){
+      console.log(`${title} by ${author}`)
+    }
+  };
+}
+
+
+const hungerGames = createBook('Hunger Games', 'booo');
+hungerGames.describe();
+
+
+function createCounter(start){
+  return {
+    value: start,
+    increase(){
+      this.value++
+    },
+    decrease(){
+      this.value--
+    },
+    print(){
+      console.log(this.value)
+    }
+  }
+}
+
+const firstCounter = createCounter(15);
+firstCounter.increase();
+firstCounter.increase();
+firstCounter.print();
+
+
+function createBankAccount(owner, balance){
+  return {
+    owner,
+    balance,
+    deposit(amount){
+      this.balance += amount
+    },
+    withdraw(amount){
+      if ((this.balance - amount) < 0){
+        console.log(`amount exceeding balance!`)
+      } else this.balance -= amount
+    },
+    printBalance(){
+      console.log(`the balance is ${this.balance}`)
+    }
+  }
+}
+
+const accountMarco = createBankAccount('Marco', 2000);
+accountMarco.deposit(450);
+accountMarco.printBalance();
+accountMarco.withdraw(3000);
+
+
+
+const people = [
+  {name: 'Marco', age: 23},
+  { name: 'Sara', age: 16 },
+  { name: 'Luca', age: 18 }
+]
+
+  let countAges = 0;
+for (let i = 0; i < people.length; i++ ){
+
+  if (people[i].age > 18) {
+    console.log(people[i].name)
+    countAges++}
+    }
+  console.log(countAges);
+
+
+const clonePeople = [];
+for (let i = 0; i < people.length; i++ ){
+  clonePeople[i] = people[i].name
+    }
+console.log(clonePeople);
+
+
+function countAge(arr) {
+let countAdults = 0;
+let countMinors = 0;
+for (let i = 0; i < arr.length; i++ ){
+  if (arr[i].age < 18) {
+countMinors++;}
+else {
+countAdults++}
+}
+console.log(`minors ${countMinors}, adults ${countAdults}`)
+}
+
+countAge(people);
+
+
+const numbers = [3, 9, 2, 15, 7]
+
+function findMax(array){
+  let maxFound = array[0];
+  for (let i = 0; i < array.length; i++){
+  if (array[i] > maxFound)
+  maxFound = array[i];
+  }
+  console.log(maxFound);
+  }
+
+  findMax(numbers);
+
+
+</script>
+</html>

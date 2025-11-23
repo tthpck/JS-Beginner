@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>09-Excercises
+  </title>
+</head>
+<body>
+  
+
+  <button class = 'js-button2'>Button Number 2</button>
+
+  <br>
+  <button id = 'id-head' onclick="coinFlip('head')"> Head </button>
+  <button id = 'id-tail' onclick="coinFlip('tail')"> Tail </button>
+  <p id = 'js-choice'>Throw the coin!</p>
+
+  <br>
+
+  <input id='js-input' onkeydown="if (event.key === 'Enter') declareName()">
+  <button onclick="declareName()">Submit</button>
+  <p id = 'js-name'>declare your name!</p>
+
+
+
+  <br>
+
+  <input id = 'js-text' placeholder="enter text here" onkeyup="showText()">
+  <p id= 'js-keyup-text'></p>
+
+</body>
+
+<script>
+
+document.querySelector('.js-button2').innerHTML = 'cambio nome bottone'
+
+function coinFlip(side){
+  document.querySelector('#js-choice').innerHTML = `you selected ${side}`;
+}
+
+function declareName(){
+  const name = document.querySelector('#js-input').value
+  document.querySelector('#js-name').innerHTML = `The name is ${name}`
+}
+
+function showText(){
+  const text = document.querySelector('#js-text').value;
+  document.querySelector('#js-keyup-text').innerHTML = text;
+}
+
+
+</script>
+</html>

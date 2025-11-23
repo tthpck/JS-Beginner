@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>01 Objects</title>
+</head>
+<body>
+  
+</body>
+
+
+<script>
+
+
+
+const products = [
+  { name:'pasta', price: 2},
+  { name: 'pane', price: 1},
+  { name:'latte', price: 3},
+  { name: 'formaggio', price: 5},
+]
+
+
+
+let sum = 0;
+let average = 0;
+
+for (let i= 0; i < products.length; i++) {
+sum += products[i].price;
+}
+average = sum / products.length;
+console.log(`La media dei prodotti èèèèèèèèèè ${average}`);
+
+
+
+
+const counter = {
+  value: 0,
+  increment(){
+    this.value++;
+  },
+  decrement(){
+    this.value--;
+  },
+  print(){
+    console.log(` the value is ${this.value}`)
+  },
+  reset(){
+    this.value = 0;
+    console.log(`value azzerato: ${this.value}`)
+  }
+}
+
+counter.increment();
+counter.increment();
+counter.print();
+
+counter.reset();
+
+
+
+
+function createUser(name, favoriteColor){
+  return {
+    name,
+    favoriteColor,
+    describe(){
+    console.log(`my name is ${this.name} amnd my fav color is ${this.favoriteColor}`)
+  }
+  };
+}
+
+const marco = createUser('marco', 'blue');
+marco.describe();
+
+
+
+function newUser(name, age, sex) {
+  return {
+    name,
+    age,
+    sex,
+    describerUser(){
+      console.log(`The user is called ${name}, age ${age}, sex ${sex}.`)
+  }
+};
+}
+
+const pippo = newUser('Pippo', '55', 'M');
+pippo.describerUser();
+
+
+
+function animalVerse(name, type, verse){
+  return {
+    name,
+    type,
+    verse,
+    sound(){
+      console.log(`this animal is a ${type}, and it ${verse}s.`)}
+  };
+}
+
+const dog = animalVerse('rocky','dog','bark');
+const cat = animalVerse('pippo','cat','miao');
+dog.sound();
+cat.sound();
+
+
+function createPlayer(name, score){
+  return {
+    name,
+    score,
+    wins(){
+      this.score++
+    },
+    loses(){
+      this.score--
+    },
+    printScore(){
+      console.log(`the score of ${name} is ${this.score}`)
+    }
+  };
+}
+
+const p1 = createPlayer('marco', 0);
+p1.wins();
+p1.wins();
+p1.loses();
+p1.printScore();
+
+
+
+
+const car = {
+  brand: 'toyota',
+  model: 'macchina',
+  year: 2015,
+  info(){
+    console.log(`the car is a ${this.brand} from ${this.year}`)
+  }
+}
+
+car.info();
+
+
+const user = {
+  name: 'gigi',
+  age: 19,
+  city: 'Milano'
+}
+
+for (let key in user) {
+console.log(key, user[key]) 
+}
+
+
+const copy = {};
+for (let key in user)
+copy[key] = user[key];
+console.log(copy);
+
+
+
+let count = 0;
+let counting = 0;
+while (count <10) {
+counting++;
+count++;
+console.log(counting);
+}
+
+for (let i = 0; i<= 20; i++){
+if (i % 2 === 0)
+console.log(i);
+}
+
+
+const nums = [1, 5, 0, null, 'ciao', 12];
+for (let i = 0; i < nums.length; i++){
+  if (nums[i])
+  console.log(nums[i])
+}
+
+
+const arr = [10, 'a', 3, undefined, 7, NaN, 2];
+let sumOne = 0;
+for (let i = 0; i < arr.length; i++){
+  if ((typeof arr[i]) === 'number' && !isNaN(arr[i]))
+  sumOne += arr[i];
+}
+ console.log(sumOne);
+
+</script>
+</html>
