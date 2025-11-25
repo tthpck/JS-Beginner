@@ -8,8 +8,8 @@
 <body>
   
 
-  <button class = "js-start" onclick="pressButton()">Start</button>
-  <button class = "js-cart" onclick="addToCart()">Add to Cart</button>
+  <button class = "js-start" >Start</button>
+  <button class = "js-cart" >Add to Cart</button>
   <p class = "js-cart-text">
 
   </p>
@@ -17,10 +17,13 @@
 
     let messagesNumber = 0;
 
+    document.querySelector('.js-start').addEventListener('click', pressButton);
+    document.querySelector('.js-cart').addEventListener('click', addToCart);
+    
     function pressButton(){
       const buttonText = document.querySelector('.js-start')
       buttonText.innerHTML = 'Loading...'
-    setTimeout((function startButton() {
+    setTimeout(( startButton = () => {
       buttonText.innerHTML = 'Finished'
     }), 2000);
     messagesNumber += Math.floor((Math.random())*10)
@@ -35,7 +38,7 @@
         clearTimeout(idTimeOut);
 
         //qui anche se sto solo dichiarando la variabile con la funzione la runna lo stesso
-        idTimeOut = setTimeout((function changeText(){
+        idTimeOut = setTimeout((changeText = () => {
           cartText.innerHTML = '';
         }),2000)
       }
