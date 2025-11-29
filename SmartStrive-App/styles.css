@@ -1,0 +1,30 @@
+
+.screen{
+  position: absolute;
+
+
+}
+
+
+.hidden {
+  display: none;
+}
+
+.macro-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  margin: 10px 0;
+  background: white;
+  border-radius: 14px;
+  border: 3px outset #260ff0;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.macro-button:active{
+  background: #260ff0;
+  color: white;
+}
