@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    
+    <script>
+
+const a = 3
+const b = 4
+const multiply = (a,b) => a * b;
+console.log(multiply(a,b));
+
+
+
+const array = [1,2,3,4,5];
+
+let counter = 0;
+array.forEach((number) => {if (number > 4) {counter++;}});
+console.log(counter);
+
+
+
+function createNum(array,num){
+    return array.map((number) => number + num)
+}
+
+console.log(createNum(array, 15));
+
+
+const foods = [
+    {name: 'apple', type: 'fruit'},
+    {name: 'banana', type: 'fruit'},
+    {name: 'carrot', type: 'vegetable'},
+    {name: 'egg', type: 'dairy'},
+    {name: 'egg', type: 'dairy'},
+    {name: 'egg', type: 'dairy'},
+    {name: 'egg', type: 'dairy'}
+];
+
+
+let eggsRemoved = 0;
+
+function removeEgg(food){
+    return food.filter((item) => {
+        if (eggsRemoved < 2 && item.name === 'egg'){
+            eggsRemoved++;
+            return false;
+        }
+        return true;
+    });
+}
+
+
+console.log(removeEgg(foods));
+
+
+
+    </script>
+</body>
+</html>

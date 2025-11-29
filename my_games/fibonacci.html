@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+</body>
+
+<script>
+
+    const fibonacci = [1];
+
+    let prev = 0;
+    let curr = 1;
+
+    while (curr < 100){
+        let next = curr + prev;
+        prev = curr;
+        curr = next;
+        fibonacci.push(next)
+    }
+    console.log(fibonacci);
+
+
+    const fibonacci2 = [1,1];
+
+    for (let i = 2; i<15; i++){
+        const newNumber = fibonacci2[i-1]+fibonacci2[i-2];
+        fibonacci2.push(newNumber);
+    }
+    console.log(fibonacci2)
+
+</script>
+</html>

@@ -1,0 +1,52 @@
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+
+
+.name-input {
+    margin-right: 10px;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.due-date-input {
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 16px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.todo-list, .todo-input-grid {
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 200px 150px 100px;
+    row-gap: 10px;
+    align-items: center;
+}
+
+.add-todo {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: green;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.delete-todo {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+
+}
