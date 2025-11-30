@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+<input class="js-search">
+<select class="js-rating">
+  <option value="0">All</option>
+  <option value="6">6+</option>
+  <option value="8">8+</option>
+  <option value="9">9+</option>
+</select>
+<div class="js-results"></div>
+
+    <script>    
+
+
+
+const movies = [
+  { title: 'Inception', rating: 9 },
+  { title: 'Avatar', rating: 6 },
+  { title: 'Dune', rating: 8 },
+  { title: 'Harry Potter', rating: 8 },
+  { title: 'Blabla', rating: 8 },
+  { title: 'LOTRS', rating: 8 },
+  { title: 'xxx', rating: 8 },
+  { title: 'Ddddddune', rating: 8 },
+];
+
+
+const input = document.querySelector('.js-search');
+const listOfMovies = document.querySelector('.js-results');
+const ratingSelection = document.querySelector('.js-rating');
+
+
+input.addEventListener('keyup', filterMovies);
+ratingSelection.addEventListener('change', filterMovies);
+
+function filterMovies (){
+    listOfMovies.innerHTML = '';
+    const inputText = input.value.toLowerCase();
+
+
+    if (inputText === '') return;
+
+    movies
+    .filter(movie => 
+        movie.title.toLowerCase().includes(inputText) &&
+        movie.rating >= ratingSelection.value)
+    .forEach(movie => {
+        listOfMovies.innerHTML += `<p>${movie.title}</p>`
+    })
+}
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

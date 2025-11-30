@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input class="js-search" placeholder="Search movie">
+    <div class="js-results"></div>
+
+    <script>    
+
+
+
+const movies = [
+  { title: 'Inception', rating: 9 },
+  { title: 'Avatar', rating: 6 },
+  { title: 'Dune', rating: 8 },
+  { title: 'Harry Potter', rating: 8 },
+  { title: 'Blabla', rating: 8 },
+  { title: 'LOTRS', rating: 8 },
+  { title: 'xxx', rating: 8 },
+  { title: 'Ddddddune', rating: 8 },
+];
+
+const results = document.querySelector('.js-results');
+const input = document.querySelector('.js-search');
+
+input.addEventListener('keyup', filterMovies);
+
+function filterMovies() {
+  const searchTerm = input.value.toLowerCase();
+  results.innerHTML = '';
+
+  if (searchTerm === '') return;
+
+  movies
+    .filter(movie => movie.title.toLowerCase().includes(searchTerm))
+    .forEach(movie => {
+      results.innerHTML += `<p>${movie.title} (${movie.rating}/10)</p>`;
+    });
+}
+
+
+/*
+const movies = [
+  { title: 'Inception', rating: 9 },
+  { title: 'Avatar', rating: 6 },
+  { title: 'Dune', rating: 8 },
+  { title: 'Harry Potter', rating: 8 },
+  { title: 'Blabla', rating: 8 },
+  { title: 'LOTRS', rating: 8 },
+  { title: 'xxx', rating: 8 },
+  { title: 'Ddddddune', rating: 8 },
+];
+
+const results = document.querySelector('.js-results');
+const input = document.querySelector('.js-search')
+
+input.addEventListener('keyup', () => filterMovies(event.key))
+
+
+
+function filterMovies(key){
+
+movies.forEach(movie => {
+    if (input.value !== '' && movie.title.includes(key)){
+        results.innerHTML += `<p>${movie.title} (${movie.rating}/10)</p>`;
+    } else if (input.value === '') { results.innerHTML = ''}
+}
+)
+}
+
+
+
+
+/*
+    function filterMovies(key){
+        
+        if (input.value === '') {
+            results.innerHTML = ''
+        } else {
+        movies
+            .filter(movie => movie.title.includes(input.value))
+            .forEach(movie => {
+                results.innerHTML += `<p>${movie.title} (${movie.rating}/10)</p>`;
+                 }
+                )
+            }
+    };
+        */
+
+
+    </script>
+</body>
+</html>

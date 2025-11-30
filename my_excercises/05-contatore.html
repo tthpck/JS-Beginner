@@ -1,0 +1,47 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+    <button class = 'js-button' value = '1'>Add</button>
+    <button class = 'js-button' value = '-1'>Subtract</button>
+    <button class = 'js-reset'>Reset</button>
+
+    <div class = 'js-output'></div>
+
+
+
+
+    <script>    
+
+const buttons = document.querySelectorAll('.js-button');
+const reset = document.querySelector('.js-reset');
+let output = document.querySelector('.js-output');
+
+
+buttons
+.forEach(button => button
+    .addEventListener('click', (e) => {changeNumber(e.target.value)})
+    )
+    
+let value = 0;
+
+function changeNumber(key) {
+
+    value = value += Number(key)
+    output.innerHTML =  value
+}
+
+
+
+
+    </script>
+</body>
+</html>

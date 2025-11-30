@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+
+    <button class = 'js-letter' value = 'A'>A</button>
+    <button class = 'js-letter' value = 'M'>M</button>
+    <button class = 'js-letter' value = 'D'>D</button>
+    <button class = 'js-letter' value = 'L'>L</button>
+    <button class = 'js-letter' value = 'B'>B</button>
+
+
+
+    <div class ="js-output"></div>   
+    
+    <script>    
+
+
+const names = ["Anna","Marco","Leo","Luca","Alice","Marta"];
+
+const buttons = document.querySelectorAll('.js-letter');
+const output = document.querySelector('.js-output');
+
+buttons.forEach((button) => {
+    button.addEventListener('click', event => {filterNames(event.target.innerHTML)})
+})
+
+function filterNames (value){
+    
+    console.log(value)
+    output.innerHTML = '';
+
+    names
+    .filter(name => 
+        name.startsWith(value))
+
+    .forEach(name => {
+        output.innerHTML += `<p>${name}</p>`
+    })
+}
+
+
+
+
+    </script>
+</body>
+</html>

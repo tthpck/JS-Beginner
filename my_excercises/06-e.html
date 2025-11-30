@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <input class="js-text" placeholder="Meal name">
+<input class="js-cal" type="number" placeholder="Calories">
+
+<select class="js-cat">
+  <option value="all">All</option>
+  <option value="breakfast">Breakfast</option>
+  <option value="lunch">Lunch</option>
+  <option value="dinner">Dinner</option>
+  <option value="snack">Snack</option>
+</select>
+
+<button class="js-add">Add Meal</button>
+
+<hr>
+<button class = 'js-clear'>Clear</button>
+
+<input class="js-filter" placeholder="Search meals">
+<select class="js-filter-cat">
+  <option value="all">All</option>
+  <option value="breakfast">Breakfast</option>
+  <option value="lunch">Lunch</option>
+  <option value="dinner">Dinner</option>
+  <option value="snack">Snack</option>
+</select>
+
+<div class="js-list"></div>
+
+
+
+<script>
+
+const mealName = document.querySelector('.js-text');
+const mealCalories = document.querySelector('.js-cal');
+const mealCategory = document.querySelector('.js-cat');
+const addButton = document.querySelector('.js-add');
+const mealList = document.querySelector('.js-list');
+const filter = document.querySelector('.js-filter');
+const filterCategory = document.querySelector('.js-filter-cat')
+
+
+addButton.addEventListener('click', () => {addMeal()}); 
+
+
+document.querySelector('.js-clear').addEventListener('click', clearList);
+
+let allMeals = JSON.parse(localStorage.getItem('meals')) || [];
+
+
+
+function addMeal() {
+
+    allMeals.push({
+        name: mealName.value,
+        calories: mealCalories.value,
+        category: mealCategory.value,
+    });
+
+
+    renderMeal()
+
+    localStorage.setItem('meals', JSON.stringify(allMeals))
+    
+}
+
+function renderMeal(){
+
+    mealList.innerHTML = '';
+
+    allMeals.forEach(meal => {
+    mealList.innerHTML += `<p>${meal.name}${meal.breakfast}</p> <button class= "js-delete">Delete</button>`    
+    });
+    
+
+    const deleteButtons = document.querySelectorAll('.js-delete');
+
+    deleteButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+        const i = button.dataset.index;
+        allMeals.splice(i,1);
+        localStorage.setItem('meals', JSON.stringify(allMeals));
+        renderMeal();
+    })})
+}
+
+
+
+
+filterCategory.addEventListener('change', renderFiltered)
+
+function renderFiltered(){
+    let filteredMeals = allMeals.filter(meal =>
+               meal.category === filterCategory.value)
+
+    mealList.innerHTML = '';
+    filteredMeals
+        .forEach(meal => {
+            mealList.innerHTML += `<p>${meal.name}${meal.calories}</p>`;
+        })
+}
+
+function clearList (){
+    mealList.innerHTML = ''
+}
+
+
+</script>
+</body>
+</html>
