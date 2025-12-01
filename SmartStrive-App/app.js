@@ -100,7 +100,7 @@ function updateMyFocus() {
   focusCard.classList.add('focus-div')
 
   const focusText = document.createElement('p');
-  focusText.textContent = (focus)
+  focusText.textContent = (focus.text)
 
   const focusButton = document.createElement('button');
    focusButton.textContent = ('Remove')
@@ -219,24 +219,36 @@ actions.forEach(actionText => {
   cardButton.textContent = ('Add to My Focus');
 
   cardButton.addEventListener('click', () => {
-        if (myFocus.includes(actionText)) return
+
+      const newAction = {
+      id: generateId(actionText),
+      text: actionText,
+      macro: macroName,
+      sub: subarea,
+      done: false,
+      addedAt: Date.now()
+      };
+
+        if (myFocus.some(item => item.text === actionText)) return
         else {
-        myFocus.push(actionText);
+        myFocus.push(newAction);
         localStorage.setItem('focus', JSON.stringify(myFocus));
         updateMyFocus();
         }
+
       })
   
   actionCard.appendChild(cardText);
   actionCard.appendChild(cardButton);
 
   actionsContent.appendChild(actionCard)
+  
 })
 
 }
 
 
 
-
-
-
+function generateId(text) {
+  return text.toLowerCase().replace(/[^a-z0-9]/g,'')+'_'+Date.now();
+}
