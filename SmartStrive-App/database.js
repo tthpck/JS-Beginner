@@ -373,4 +373,3 @@ const actionsDatabase = {
   }
 
 };
-
