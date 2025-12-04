@@ -59,22 +59,30 @@ const dailyProgress =  JSON.parse(localStorage.getItem('daily')) || {
 
 //event listeners buttons
 
+function setActive(button) {
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  button.classList.add('active');
+}
+
 homeButton.forEach(button => 
     button.addEventListener('click', () => {
+      setActive(button);
       changeScreen(homeScreen)
       updateHomeScreen();
-  }
-));
-
-exploreButton.forEach(button => 
+    }
+  ));
+  
+  exploreButton.forEach(button => 
     button.addEventListener('click', () => {
+      setActive(button);
       changeScreen(exploreScreen);
       renderExploreScreen();
-  }
-));
-
-focusButton.forEach(button => 
+    }
+  ));
+  
+  focusButton.forEach(button => 
     button.addEventListener('click', () => {
+      setActive(button);
       changeScreen(focusScreen);
       updateMyFocus();
     }
@@ -82,6 +90,7 @@ focusButton.forEach(button =>
   
   profileButton.forEach(button => 
     button.addEventListener('click', () => {
+      setActive(button);
       changeScreen(profileScreen);
       renderProfileScreen();
   }
@@ -111,7 +120,7 @@ const mainFocus = myFocus.filter(focus => focus.main === true)
 
   const logoCard = document.createElement('div');
   logoCard.classList.add('title-card');
-  logoCard.textContent = 'SmartStrive';
+  logoCard.innerHTML = 'Focus on the 20.<br> Obtain the 80.';
 
   const welcomeCard = document.createElement('div');
   welcomeCard.classList.add('welcome-card');
@@ -119,7 +128,6 @@ const mainFocus = myFocus.filter(focus => focus.main === true)
 
   const motivationCard = document.createElement('div');
   motivationCard.classList.add('motivation-card');
-  motivationCard.textContent = ('Focus on the 20. Obtain the 80!')
 
   const mainFocusCard = document.createElement('div');
   mainFocusCard.classList.add('main-focus-card');
@@ -175,7 +183,7 @@ function updateMyFocus() {
   
 
   myFocus.sort((a,b) => a.done - b.done)
-  updateMyFocus
+
 
   if (myFocus.length !== 0) {
   myFocus.forEach((focus,index) => {
@@ -187,53 +195,32 @@ function updateMyFocus() {
   focusText.textContent = (focus.text)
 
   const focusButton = document.createElement('button');
-   focusButton.textContent = ('Remove')
+   focusButton.textContent = ('-')
    focusButton.classList.add('focus-remove-button', 'secondary-button')
 
   const mainFocusButton = document.createElement('button');
   mainFocusButton.textContent = ('🔥');
   mainFocusButton.classList.add('main-focus-button', 'secondary-button');
   
-  /*
-   const focusCheckBox = document.createElement('input');
-   focusCheckBox.type = ('checkbox');
-   focusCheckBox.classList.add('focus-checkbox');
-   focusCheckBox.checked = focus.done;
-   
-
-   focusCheckBox.addEventListener('change', () => {
-    focus.done = focusCheckBox.checked;
-
-    const numberCompleted = myFocus.filter(item => item.done).length;
-
-    dailyProgress.percentageCompleted =
-    myFocus.length === 0 ? 0 : numberCompleted / myFocus.length;
-
-    dailyProgress.completed = numberCompleted;
-
-    if (!dailyProgress.dailyStreak && numberCompleted > 0) {
-        dailyProgress.dailyStreak = true;
-        dailyProgress.dailyStreakDays++;
-    }
-
-    if (focus.done && !completedHistory.some(item => item.id === focus.id)) completedHistory.push(focus);
-
-    localStorage.setItem('focus', JSON.stringify(myFocus));
-    localStorage.setItem('daily', JSON.stringify(dailyProgress));
-    localStorage.setItem('history', JSON.stringify(completedHistory));
-*/
+  
 const toggleCompletion = document.createElement('div');
   toggleCompletion.classList.add('toggle-completion')
   if (focus.done) toggleCompletion.classList.add('active')
   
-  toggleCompletion.textContent = focus.done? 'Completed!' : 'Tap to complete';
+  toggleCompletion.textContent = focus.done? '✔' : 'Tap to complete';
 
   toggleCompletion.addEventListener('click', () => {
     focus.done = !focus.done;
-    
-    if (focus.done) {toggleCompletion.classList.add('active')} else {toggleCompletion.classList.remove('active')};
 
-    toggleCompletion.textContent = focus.done? 'Completed!' : 'Tap to complete';
+    if (focus.done) {
+      toggleCompletion.classList.add('active')
+      focusCard.classList.add('active')
+    } else {
+      toggleCompletion.classList.remove('active')
+      focusCard.classList.remove('active')
+    };
+
+    toggleCompletion.textContent = focus.done? '✔' : 'Tap to complete';
     const numberCompleted = myFocus.filter(item => item.done).length;
 
     dailyProgress.percentageCompleted =
@@ -253,7 +240,22 @@ const toggleCompletion = document.createElement('div');
     localStorage.setItem('history', JSON.stringify(completedHistory));  
   })
 
-   
+  if (focus.done) focusCard.classList.add('active');
+  else focusCard.classList.remove('active');
+
+  if (focus.main) focusCard.classList.add("main");
+  else focusCard.classList.remove("main");
+
+
+  const actionsContainer = document.createElement('div');
+  actionsContainer.classList.add('focus-actions');
+
+  actionsContainer.appendChild(mainFocusButton);
+  actionsContainer.appendChild(focusButton);
+
+  focusCard.appendChild(actionsContainer);
+
+
    focusCard.appendChild(toggleCompletion);
    focusCard.appendChild(focusText);
    focusCard.appendChild(mainFocusButton);
@@ -264,11 +266,15 @@ const toggleCompletion = document.createElement('div');
 
    mainFocusButton.addEventListener('click', () => {
     focus.main = !focus.main;
+
+    focus.main? focusCard.classList.add('main-active')
+    : focusCard.classList.remove('main-active');
+
     localStorage.setItem('focus', JSON.stringify(myFocus))
     updateMyFocus()    
   })
 
-  if (focus.main) focusCard.style.backgroundColor = ('red');
+  if (focus.main) focusCard.classList.add('main-active');
 
    focusButton.addEventListener('click', () =>{
     myFocus.splice(index, 1);
@@ -418,10 +424,10 @@ function renderProfileScreen(){
   profileContent.appendChild(userNameCard);
 
   userNameButton.addEventListener('click', () => {
-  const userNameChoice = userNameInput.value;
+  const userNameChoice = userNameInput.value.trim();
   localStorage.setItem('username', userNameChoice);
-  userName = localStorage.getItem('username');
-  renderUserName();
+  userNameButton.textContent = 'Saved!';
+  updateHomeScreen();
 });
 
   statsContent.innerHTML = '';
