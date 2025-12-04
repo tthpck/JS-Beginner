@@ -14,6 +14,8 @@ const exploreScreen = document.querySelector('.js-explore-screen');
 const focusScreen = document.querySelector('.js-focus-screen');
 let focusContent = document.querySelector('.js-focus-content');
 const profileScreen = document.querySelector('.js-profile-screen');
+let profileContent = document.querySelector('.js-profile-content');
+const statsContent = document.querySelector('.js-stats-content');
 let exploreScreenContent = document.querySelector('.js-explore-content');
 const subAreaScreen = document.querySelector('.js-subsections-screen');
 let subAreaContent = document.querySelector('.js-subsections-content');
@@ -23,9 +25,34 @@ let actionsContent = document.querySelector('.js-actions-content');
 //p
 const welcomeMessage = document.querySelector('.js-welcome-message');
 
-//input
-const inputUserName = document.querySelector('.js-username-input');
 
+//my focus content
+
+const myFocus = JSON.parse(localStorage.getItem('focus')) || [];
+
+
+
+const todayDate = new Date().toDateString();
+const lastReset = localStorage.getItem('lastReset');
+
+const dailyProgress =  JSON.parse(localStorage.getItem('daily')) || {
+  completed: 0,
+  dailyStreak: 0,
+  dailyStreakDays: 0,
+  percentageCompleted: 0,
+}
+//If new day
+
+   if (todayDate !== lastReset) {
+      myFocus.forEach(item => item.done = false)
+    localStorage.setItem('lastReset', todayDate);
+    localStorage.setItem('focus', JSON.stringify(myFocus))
+    dailyProgress.dailyStreak = false;
+    dailyProgress.dailyStreakDays = 0;
+    dailyProgress.completed = 0;
+    dailyProgress.percentageCompleted = 0;
+    localStorage.setItem('daily', JSON.stringify(dailyProgress));
+  };
 
 
 //event listeners buttons
@@ -45,13 +72,15 @@ exploreButton.forEach(button =>
 
 focusButton.forEach(button => 
     button.addEventListener('click', () => {
-      changeScreen(focusScreen)
+      changeScreen(focusScreen);
+      updateMyFocus();
     }
   ));
   
   profileButton.forEach(button => 
     button.addEventListener('click', () => {
-      changeScreen(profileScreen)
+      changeScreen(profileScreen);
+      renderProfileScreen();
   }
 ));
 
@@ -66,14 +95,6 @@ function renderUserName(){
   } else {welcomeMessage.innerHTML = `Hi, There!`}
 };
 
-//userName Selection
-
-selectUserName.addEventListener('click', () => {
-  const userNameChoice = inputUserName.value;
-  localStorage.setItem('username', userNameChoice);
-  userName = localStorage.getItem('user');
-  renderUserName();
-});
 
 //function screen buttons
 
@@ -84,9 +105,6 @@ function changeScreen(screen){
   screen.classList.remove('hidden')
 }
 
-//my focus content
-
-const myFocus = JSON.parse(localStorage.getItem('focus')) || [];
 
 updateMyFocus()
 
@@ -94,10 +112,23 @@ function updateMyFocus() {
 
   focusContent.innerHTML = '';
 
+
+  const focusHeaderCard = document.createElement('div');
+  focusHeaderCard.classList.add('focus-header-card')
+  const focusHeader = document.createElement('p');
+  focusHeader.textContent = 'TODAY I WILL FOCUS ON';
+  focusHeaderCard.appendChild(focusHeader);
+  focusContent.appendChild(focusHeaderCard);
+  
+
+  myFocus.sort((a,b) => a.done - b.done)
+  updateMyFocus
+
   if (myFocus.length !== 0) {
   myFocus.forEach((focus,index) => {
   const focusCard = document.createElement('div');
   focusCard.classList.add('focus-div')
+ 
 
   const focusText = document.createElement('p');
   focusText.textContent = (focus.text)
@@ -106,20 +137,55 @@ function updateMyFocus() {
    focusButton.textContent = ('Remove')
    focusButton.classList.add('focus-remove-button')
 
+  const mainFocusButton = document.createElement('button');
+  mainFocusButton.textContent = ('🔥');
+  mainFocusButton.classList.add('main-focus-button')
+
    const focusCheckBox = document.createElement('input');
    focusCheckBox.type = ('checkbox');
+   focusCheckBox.classList.add('focus-checkbox');
+   focusCheckBox.checked = focus.done;
+   
 
+   focusCheckBox.addEventListener('change', () => {
+    focus.done = focusCheckBox.checked;
+
+    const numberCompleted = myFocus.filter(item => item.done).length;
+
+    dailyProgress.percentageCompleted = numberCompleted / myFocus.length;
+    dailyProgress.completed = numberCompleted;
+
+    if (!dailyProgress.dailyStreak && numberCompleted > 0) {
+        dailyProgress.dailyStreak = true;
+        dailyProgress.dailyStreakDays++;
+    }
+
+    localStorage.setItem('focus', JSON.stringify(myFocus));
+    localStorage.setItem('daily', JSON.stringify(dailyProgress));
+  })
+
+   
    focusCard.appendChild(focusCheckBox);
    focusCard.appendChild(focusText);
+   focusCard.appendChild(mainFocusButton);
    focusCard.appendChild(focusButton);
 
    focusContent.appendChild(focusCard);
 
 
+   mainFocusButton.addEventListener('click', () => {
+    focus.main = !focus.main;
+    localStorage.setItem('focus', JSON.stringify(myFocus))
+    updateMyFocus()    
+  })
+
+  if (focus.main) focusCard.style.backgroundColor = ('red');
 
    focusButton.addEventListener('click', () =>{
     myFocus.splice(index, 1);
     localStorage.setItem('focus', JSON.stringify(myFocus))
+
+
     updateMyFocus();
    })
 })} else {
@@ -156,7 +222,7 @@ function renderExploreScreen(){
   )
 
   macroCard.appendChild(macroButton);
-  exploreScreen.appendChild(macroCard)
+  exploreScreenContent.appendChild(macroCard)
 
 
 
@@ -226,10 +292,11 @@ actions.forEach(actionText => {
       macro: macroName,
       sub: subarea,
       done: false,
+      main: false,
       addedAt: Date.now()
       };
 
-        if (myFocus.some(item => item.text === actionText)) return
+        if (myFocus.some(item => item.id === newAction.id)) return
         else {
         myFocus.push(newAction);
         localStorage.setItem('focus', JSON.stringify(myFocus));
@@ -244,6 +311,53 @@ actions.forEach(actionText => {
   actionsContent.appendChild(actionCard)
   
 })
+
+}
+
+function renderProfileScreen(){
+
+  profileContent.innerHTML = '';
+
+  const userNameCard = document.createElement('div');
+
+  const userNameInput = document.createElement('input');
+  userNameInput.classList.add('username-input');
+  const userNameButton = document.createElement('button');
+  userNameButton.textContent = 'Choose UserName';
+  userNameButton.classList.add('username-selection')
+
+  userNameCard.appendChild(userNameInput);
+  userNameCard.appendChild(userNameButton);
+  profileContent.appendChild(userNameCard);
+
+  userNameButton.addEventListener('click', () => {
+  const userNameChoice = userNameInput.value;
+  localStorage.setItem('username', userNameChoice);
+  userName = localStorage.getItem('username');
+  renderUserName();
+});
+
+  statsContent.innerHTML = '';
+
+  const statsCard = document.createElement('div');
+  statsCard.classList.add('stats-card');
+  const statsTitle = document.createElement('p');
+  statsTitle.textContent = 'Your Stats are:'
+
+  const completedText = document.createElement('p');
+    completedText.textContent = `You have completed ${dailyProgress.completed} tasks today!`
+
+  const dailyStreakDaysText = document.createElement('p');
+    dailyStreakDaysText.textContent = `You are on a ${dailyProgress.dailyStreakDays} days streak of completed tasks!`
+
+  const percentageCompletedText = document.createElement('p');
+    percentageCompletedText.textContent = `You have completed${dailyProgress.percentageCompleted*100}% of your daily tasks!`
+
+  statsCard.appendChild(statsTitle);
+  statsCard.appendChild(completedText);
+  statsCard.appendChild(dailyStreakDaysText);
+  statsCard.appendChild(percentageCompletedText);
+  statsContent.appendChild(statsCard);
 
 }
 
