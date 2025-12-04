@@ -1,6 +1,47 @@
-body {
-  background-color: #F0eff4;
+:root {
+  --bg: #F0EFF4;
+  --primary: #260FF0;
+  --primary-hover: #1E0CC4;
+  --accent: #D6FF79;
+  --accent-soft: #EBFFBD;
+
+  --text-primary: #1A1A1A;
+  --text-secondary: #6F6F7A;
+  --card-bg: #FFFFFF;
+  --divider: #E3E3E7;
+
+  --success: #14C851;
 }
+
+body {
+  font-family: "SF Pro", sans-serif;
+  background: var(--bg);
+  margin: 0px;
+  padding: 0;
+}
+
+
+h1, h2 {
+  margin: 0;
+}
+
+h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.45;
+  color: var(--text-primary);
+}
+
+
 
 .nav-buttons {
   position: fixed;
@@ -14,7 +55,7 @@ body {
 
 .focus-button , .home-button , .profile-button , .explore-button {
   background-color: #260ff0;
-  color: #d6ff79;
+  color: white;
   border: none;
   border-radius: 6px;
   font-weight: bold;
@@ -40,12 +81,62 @@ body {
   display: none;
 }
 
+.primary-button {
+  background: var(--primary);
+  color: white;
+  border: none;
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 16px;
+  border-radius: 12px;
+  margin-top: 12px;
+  cursor: pointer;
+}
+
+.primary-button:active {
+  background: var(--primary-hover);
+}
+
+
+
+.secondary-button {
+  background: #FFFFFF;
+  border: 2px outset var(--primary);
+  color: var(--primary);
+  padding: 12px 20px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.toggle-completion {
+  width: 100%;
+  padding: 12px 16px;
+  background: white;
+  border: 1px solid var(--divider);
+  color: var(--text-secondary);
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.05s ease;
+  user-select: none;
+  text-align: center;
+}
+
+.toggle-completion.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #2A2A2A;
+  font-weight: 600;
+}
+
+
+
 .macro-button {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 16px;
   margin: 10px 0;
+  width: 100%;
   background: white;
   border-radius: 14px;
   border: 3px outset #260ff0;
@@ -68,6 +159,7 @@ body {
   padding: 16px;
   margin: 10px 0;
   background: white;
+  width: 100%;
   border-radius: 14px;
   border: 3px outset #d6ff79;
   box-shadow: 0 2px 5px rgba(0,0,0,0.06);
