@@ -1,11 +1,12 @@
 
 
 //buttons
-const homeButton = document.querySelectorAll('.js-home-button');
+const homeButton = document.querySelector('.js-home-button');
 const exploreButton = document.querySelectorAll('.js-explore-button');
 const focusButton = document.querySelectorAll('.js-focus-button');
 const profileButton = document.querySelectorAll('.js-profile-button');
 const selectUserName = document.querySelector('.js-username-selection');
+const backButton = document.querySelector('.js-back-button');
 
 //screens
 const allScreens = document.querySelectorAll('.screen');
@@ -47,11 +48,13 @@ const dailyProgress =  JSON.parse(localStorage.getItem('daily')) || {
 const onboardingCompleted = localStorage.getItem('onboardingCompleted')
 
 if (!onboardingCompleted) {
+  document.querySelector('.js-nav-buttons').classList.add('hidden');
   changeScreen(onboardingScreen);
   renderOnboarding();
-} else {
+  } else {
   changeScreen(homeScreen);
   updateHomeScreen();
+  setActive(homeButton)
 }
 
 //If new day
@@ -72,13 +75,13 @@ if (!onboardingCompleted) {
 
 //event listeners buttons
 
-homeButton.forEach(button => 
-    button.addEventListener('click', () => {
-      setActive(button);
+
+    homeButton.addEventListener('click', () => {
+      setActive(homeButton);
       changeScreen(homeScreen)
       updateHomeScreen();
     }
-  ));
+  );
   
   exploreButton.forEach(button => 
     button.addEventListener('click', () => {
@@ -131,10 +134,10 @@ const onboardingTitle = document.createElement('div');
 onboardingTitle.textContent = ('Welcome to SmartStrive');
 onboardingTitle.classList.add('onboarding-title');
 const OnboardingQuote = document.createElement('div');
-OnboardingQuote.textContent = ('The Pareto rule says....'); //to finish
+OnboardingQuote.textContent = ('80% of your progress comes from 20% of your actions.');
 OnboardingQuote.classList.add('onboarding-quote');
 const OnboardingDescription = document.createElement('div');
-OnboardingDescription.textContent = ('SmartStrive helps you identify...'); //to finish
+OnboardingDescription.textContent = ('Discover your priorities, stay focused, and build habits that actually move your life forward.'); 
 OnboardingDescription.classList.add('onboarding-description');
 const onboardingUserQuote = document.createElement('div');
 onboardingUserQuote.textContent = ('What should I call you?'); //to finish
@@ -160,7 +163,9 @@ onboardingButton.addEventListener('click', () => {
 
 onboardingCTAButton.addEventListener('click', () => {
       localStorage.setItem('onboardingCompleted', 'true')
+      document.querySelector('.js-nav-buttons').classList.remove('hidden')
       changeScreen(homeScreen);
+      setActive(homeButton)
       updateHomeScreen();
 
 })
@@ -198,7 +203,7 @@ function updateHomeScreen() {
   const motivationCardTitle = document.createElement('p')
   motivationCardTitle.textContent = (`MY MAIN FOCUS TODAY`);
   motivationCard.appendChild(motivationCardTitle);
-  showMainFocus();
+ ;
 
   homeContent.innerHTML = '';
 
@@ -207,17 +212,22 @@ function updateHomeScreen() {
    else return welcomeCard.innerHTML = `Hi, There!`
   };
 
+    showMainFocus();
+    
   homeContent.appendChild(logoCard);
   homeContent.appendChild(welcomeCard);
   homeContent.appendChild(motivationCard);
   homeContent.appendChild(mainFocusCard);
 
   function showMainFocus() {
-    mainFocus.forEach(focus => {
+    mainFocus.forEach(focus => { 
+      if (!focus.done){
       const focusCard = document.createElement('Div');
       focusCard.textContent = focus.text;
-      motivationCard.appendChild(focusCard)
-    })
+      mainFocusCard.appendChild(focusCard)
+      }
+  })
+    
   }
 }
 
@@ -249,7 +259,11 @@ function updateMyFocus() {
   myFocus.sort((a,b) => a.done - b.done)
 
 
-  if (myFocus.length !== 0) {
+  if (myFocus.length === 0) {
+    renderPlaceHolder()
+    
+  } else {
+
     myFocus.forEach((focus,index) => {
     const focusCard = document.createElement('div');
     focusCard.classList.add('focus-div')
@@ -276,6 +290,7 @@ function updateMyFocus() {
     toggleCompletion.addEventListener('click', () => {
       focus.done = !focus.done;
 
+
       if (focus.done) {
         toggleCompletion.classList.add('active')
         focusCard.classList.add('active')
@@ -296,6 +311,8 @@ function updateMyFocus() {
           dailyProgress.dailyStreak = true;
           dailyProgress.dailyStreakDays++;
       }
+
+
 
       if (focus.done && !completedHistory.some(item => item.id === focus.id)) completedHistory.push(focus);
 
@@ -345,14 +362,16 @@ function updateMyFocus() {
       localStorage.setItem('focus', JSON.stringify(myFocus))
       updateMyFocus();
     })
-  })} else {
+  })
 
-    const placeHolderText = document.createElement('p');
-    placeHolderText.textContent = ('Add a focus and start changing your life!');
-
-    focusContent.appendChild(placeHolderText);
 }}
 
+//render placerholder
+function renderPlaceHolder() {
+    const placeHolderText = document.createElement('p');
+    placeHolderText.textContent = ('Add a focus and start changing your life!');
+    focusContent.appendChild(placeHolderText);
+}
 
 //explore screen
 
@@ -469,6 +488,7 @@ actions.forEach(actionText => {
   
 })
 
+  backButton.addEventListener('click', ()=> renderSubArea(macroName))
 }
 
 function renderProfileScreen(){
