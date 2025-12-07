@@ -9,6 +9,8 @@ const selectUserName = document.querySelector('.js-username-selection');
 
 //screens
 const allScreens = document.querySelectorAll('.screen');
+const onboardingScreen = document.querySelector('.js-onboarding-screen');
+const onboardingContent = document.querySelector('.js-onboarding-content');
 const homeScreen = document.querySelector('.js-home-screen');
 const homeContent = document.querySelector('.js-home-content');
 const exploreScreen = document.querySelector('.js-explore-screen');
@@ -41,6 +43,21 @@ const dailyProgress =  JSON.parse(localStorage.getItem('daily')) || {
   dailyStreakDays: 0,
   percentageCompleted: 0,
 }
+
+
+//onboarding check
+
+
+const onboardingCompleted = localStorage.getItem('onboardingCompleted')
+
+if (!onboardingCompleted) {
+  changeScreen(onboardingScreen);
+  renderOnboarding();
+} else {
+  changeScreen(homeScreen);
+  updateHomeScreen();
+}
+
 //If new day
 
    if (todayDate !== lastReset) {
@@ -108,8 +125,62 @@ function changeScreen(screen){
 }
 
 
-updateMyFocus();
-updateHomeScreen();
+
+// onboarding screen function
+
+function renderOnboarding() {
+
+onboardingContent.innerHTML = '';
+const onboardingCard = document.createElement('div');
+onboardingCard.classList.add('onboarding-card');
+
+const onboardingTitle = document.createElement('div');
+onboardingTitle.textContent = ('Welcome to SmartStrive');
+onboardingTitle.classList.add('onboarding-title');
+const OnboardingQuote = document.createElement('div');
+OnboardingQuote.textContent = ('The Pareto rule says....'); //to finish
+OnboardingQuote.classList.add('onboarding-quote');
+const OnboardingDescription = document.createElement('div');
+OnboardingDescription.textContent = ('SmartStrive helps you identify...'); //to finish
+OnboardingDescription.classList.add('onboarding-description');
+const onboardingUserQuote = document.createElement('div');
+onboardingUserQuote.textContent = ('What should I call you?'); //to finish
+onboardingUserQuote.classList.add('onboarding-user-quote');
+const onboardingUserName = document.createElement('input');
+onboardingUserName.classList.add('onboarding-username-input');
+const onboardingButton = document.createElement('button');
+onboardingButton.textContent = ('Choose')
+onboardingButton.classList.add('onboarding-button');
+const onboardingCTA = document.createElement('div');
+const onboardingCTAButton = document.createElement('button');
+onboardingCTAButton.textContent = ('Start My Day!')
+onboardingCTA.classList.add('onboarding-CTA');
+onboardingCTAButton.classList.add('onboarding-CTA-button')
+onboardingCTA.appendChild(onboardingCTAButton);
+
+
+onboardingButton.addEventListener('click', () => {
+  const userName = onboardingUserName.value.trim();
+  localStorage.setItem('username', userName);
+  onboardingButton.textContent = ('Got it!')
+})
+
+onboardingCTAButton.addEventListener('click', () => {
+      localStorage.setItem('onboardingCompleted', 'true')
+      changeScreen(homeScreen);
+      updateHomeScreen();
+
+})
+
+onboardingCard.append(onboardingTitle, OnboardingQuote, OnboardingDescription, onboardingUserQuote, 
+  onboardingUserName, onboardingButton, onboardingCTA)
+
+onboardingContent.appendChild(onboardingCard)
+
+
+
+}
+
 
 //Home screen function
 
@@ -120,7 +191,7 @@ const mainFocus = myFocus.filter(focus => focus.main === true)
 
   const logoCard = document.createElement('div');
   logoCard.classList.add('title-card');
-  logoCard.innerHTML = 'Focus on the 20.<br> Obtain the 80.';
+  logoCard.innerHTML = 'Focus on 20. Obtain 80.';
 
   const welcomeCard = document.createElement('div');
   welcomeCard.classList.add('welcome-card');

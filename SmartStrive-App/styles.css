@@ -1,5 +1,10 @@
+/* ============================================================
+   GLOBAL RESET & BASE
+   ============================================================ */
+
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 :root {
@@ -10,185 +15,93 @@
   --accent-soft: #EBFFBD;
 
   --text-dark: #1A1A1A;
-  --text-light: #555;
+  --text-light: #666;
   --white: #FFFFFF;
   --divider: #E3E3E7;
 
-  --success: #14C851;
+  --card-radius: 14px;
+  --padding: 16px;
+  --shadow-soft: 0 2px 4px rgba(0,0,0,0.06);
 }
 
 body {
-  font-family: "SF Pro", sans-serif;
+  font-family: "SF Pro", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   background: var(--bg);
-  margin: 0px;
-  padding: 0;
-}
-
-
-h1, h2 {
   margin: 0;
-}
-
-h1 {
-  font-size: 28px;
-  font-weight: 700;
-}
-
-h2 {
-  font-size: 22px;
-  font-weight: 600;
+  color: var(--text-dark);
 }
 
 p {
-  font-size: 16px;
-  line-height: 1.45;
-  color: var(--text-dark);
-}
-
-
-.focus-header-card {
-  margin: 10px 0 20px;
-  padding: 0 14px;
-}
-
-.focus-header-card p {
-  font-size: 22px;
-  font-weight: 600;
-  color: var(--text-dark);
-}
-
-.focus-div {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 10px 12px;
-  margin: 10px;
-
-  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
-  transition: 
-    background-color 0.25s ease,
-    opacity 0.25s ease,
-    transform 0.25s ease;
-}
-
-.profile-screen {
-  overflow-y: auto;
-  height: calc(100vh - 60px); /* spazio per nav bar */
-}
-
-.stats-content,
-.profile-content {
-  padding-bottom: 40px; /* per stare sicuri */
-}
-
-.focus-div.active {
-  background-color: var(--accent-soft)
-}
-
-.focus-div p {
-  flex: 1;
-  font-size: 15px;
-  font-weight: 400;
   margin: 0;
-  color: #1e1e1e;
-  line-height: 1.3;
+  font-size: 15px;
+  line-height: 1.4;
 }
 
 
-.main-focus-button,
-.focus-remove-button {
-  width: 28px;
-  height: 28px;
+/* ============================================================
+   SCREEN SYSTEM (scroll perfetto sopra la nav)
+   ============================================================ */
 
-  border-radius: 6px;
-  border: 1px solid #cfcfcf;
-  background: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  cursor: pointer;
-  font-size: 16px;
-
-  transition: background 0.2s, transform 0.2s;
-}
-
-.main-focus-button:hover,
-.focus-remove-button:hover {
-  background: #260ff0;
-  color: white;
-  transform: scale(1.1);
-}
-
-.focus-div.main {
-  outline: 2px solid #260ff0;
-}
-
-
-.focus-checkbox {
-  appearance: none;
-  width: 42px;
-  height: 22px;
-  border-radius: 11px;
-  background: #ccc;
+.screen {
   position: relative;
-  cursor: pointer;
-  flex-shrink: 0;
-  margin-right: 10px;
+  height: calc(100vh - 62px);   /* spazio per navbar */
+  overflow-y: auto;
+  padding: 20px 16px 80px;      /* padding bottom extra */
+  -webkit-overflow-scrolling: touch;
+  z-index: 1;                   /* sotto la navbar */
 }
 
-.focus-checkbox::after {
-  content: "";
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: white;
-  transition: left 0.2s;
-}
-
-.focus-checkbox:checked {
-  background: #d6ff79;
-}
-
-.focus-checkbox:checked::after {
-  left: 22px;
+.hidden {
+  display: none;
 }
 
 
-.focus-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  margin-left: 10px;
+/* ============================================================
+   CARD BASE (riusato via gruppi di selettori)
+   ============================================================ */
+
+.card-base {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--divider);
+  box-shadow: var(--shadow-soft);
+  padding: var(--padding);
+}
+
+/* Tutte le card principali usano lo stile base */
+.welcome-card,
+.motivation-card,
+.main-focus-card,
+.action-div,
+.stats-card {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--divider);
+  box-shadow: var(--shadow-soft);
+  padding: var(--padding);
 }
 
 
-/* ===== BOTTOM NAV BAR (usa le tue classi) ===== */
+/* ============================================================
+   NAV BAR
+   ============================================================ */
 
 .nav-buttons {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
+  height: 62px;
 
-  background: #ffffff;
+  background: #ffffffee;
+  backdrop-filter: blur(12px);
   border-top: 1px solid var(--divider);
-  box-shadow: 0 -2px 6px rgba(0,0,0,0.06);
 
   display: flex;
   justify-content: space-around;
   align-items: center;
 
-  padding: 8px 0;
-  z-index: 999;
+  z-index: 9999;
 }
 
 .nav-item,
@@ -197,219 +110,185 @@ p {
 .focus-button,
 .profile-button {
   flex: 1;
+  height: 100%;
   background: none;
   border: none;
-
-  font-size: 14px;
-  font-weight: 500;
-
-  color: var(--text-light); /* 👈 colore neutro, come deve essere */
-  text-align: center;
-
-  padding: 6px 0;
   cursor: pointer;
 
-  -webkit-tap-highlight-color: transparent;
-  transition: color 0.15s ease, transform 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-light);
+
+  transition: color 0.18s ease, background 0.18s ease, transform 0.18s ease;
 }
 
-/* Stato attivo della tab */
 .nav-item.active,
 .home-button.active,
 .explore-button.active,
 .focus-button.active,
 .profile-button.active {
-  background-color: var(--secondary);
+  color: var(--primary);
   font-weight: 600;
-  transform: scale(1.05);
-}
-
-/* Quando si clicca: niente effetto brutto */
-.nav-item:focus,
-.home-button:focus,
-.explore-button:focus,
-.focus-button:focus,
-.profile-button:focus {
-  outline: none;
-}
-
-
-.screen {
-  width: 100%;
-  min-height: 100vh;
-  top: 0;
-  left: 0;
-}
-
-.hidden {
-  display: none;
-}
-
-.primary-button {
-  background: var(--primary);
-  color: white;
-  border: none;
-  width: 100%;
-  padding: 14px 20px;
-  font-size: 16px;
-  border-radius: 12px;
-  margin-top: 12px;
-  cursor: pointer;
-}
-
-.explore-screen {
-  overflow-y: auto;
-  height: calc(100vh - 60px); /* spazio per nav bar */
-  padding-bottom: 20px;
-}
-
-.primary-button:active {
-  background: var(--primary-hover);
-}
-
-
-.toggle-completion {
-  width: 30%;
-
-  background: white;
-  color: var(--text-light);
-  font-size: 15px;
-  cursor: pointer;
-  transition: all 0.05s ease;
-  user-select: none;
-  text-align: center;
-  border-radius: 3px;
-  -webkit-tap-highlight-color: transparent;
-
-}
-
-.toggle-completion.active {
-  background: var(--accent-soft);
-  border-color: var(--secondary);
-  color: #2A2A2A;
-  font-weight: 600;
-}
-
-.explore-content,
-.subsections-content,
-.actions-content {
-  padding: 20px;
-  box-sizing: border-box; /* IMPORTANTISSIMO */
-}
-
-.macro-button {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  margin: 10px 0;
-  width: 100%;
-  background: white;
+  background: rgba(38, 15, 240, 0.12);
   border-radius: 14px;
-  border: 3px outset #260ff0;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-  cursor: pointer;
-  font-size: 17px;
-  transition: background-color 0.15s, color 0.15s;
-  
+  transform: translateY(-3px);
 }
 
-.macro-button:active{
-  background: #260ff0;
-  color: white;
-}
-
-.subarea-button {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px;
-  margin: 10px 0;
-  background: white;
-  width: 100%;
-  border-radius: 14px;
-  border: 3px outset #d6ff79;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.06);
-  cursor: pointer;
-  font-size: 17px;
-  transition: background-color 0.15s;
-}
-
-.subarea-button:active {
-  background-color: #d6ff79;
+.nav-item:active,
+.home-button:active,
+.explore-button:active,
+.focus-button:active,
+.profile-button:active {
+  transform: scale(0.96);
+  opacity: 0.85;
 }
 
 
-/* ===== HOME SCREEN LAYOUT ===== */
+/* ============================================================
+   ONBOARDING SCREEN
+   ============================================================ */
 
-.home-content {
-  padding: 24px 18px;
+.onboarding-screen {
+  padding-top: 32px;
+  padding-bottom: 80px;
+  background: var(--bg);
+}
+
+.onboarding-content {
   display: flex;
   flex-direction: column;
-  gap: 22px;
-  padding-bottom: 90px; /* spazio per la nav bar */
+  align-items: center;
 }
 
+.onboarding-card {
+  background: var(--white);
+  border-radius: 18px;
+  border: 1px solid var(--divider);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
 
-/* ===== TITLE CARD (SmartStrive) ===== */
-.title-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 28px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.onboarding-title {
   font-size: 26px;
   font-weight: 800;
   color: var(--primary);
-  text-align: left;
-  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.onboarding-quote {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-dark);
+  text-align: center;
+}
+
+.onboarding-description {
+  font-size: 15px;
+  color: var(--text-light);
+  text-align: center;
+}
+
+.onboarding-user-quote {
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  margin-top: 4px;
+}
+
+.onboarding-username-input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid var(--divider);
+  font-size: 16px;
+}
+
+.onboarding-button {
+  width: 100%;
+  background: var(--primary);
+  color: white;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.onboarding-button:active {
+  background: var(--primary-hover);
+}
+
+.onboarding-CTA {
+  margin-top: 10px;
+}
+
+.onboarding-CTA-button {
+  width: 100%;
+  background: var(--secondary);
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  color: #2A2A2A;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.onboarding-CTA-button:active {
+  background: #c9f86b;
 }
 
 
-/* ===== WELCOME CARD (Hi, Marco) ===== */
+/* ============================================================
+   HOME SCREEN
+   ============================================================ */
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.title-card {
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+  color: var(--primary);
+}
+
+/* "Hi, Marco" */
 .welcome-card {
   font-size: 22px;
   font-weight: 700;
   color: var(--text-dark);
-
-  background: white;
-  padding: 18px 20px;
-  border-radius: 14px;
-
-  border: 1px solid var(--divider);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-
-/* ===== MOTIVATION CARD (Focus on the 20...) ===== */
-
+/* "Focus on 20…" e MY MAIN FOCUS TODAY */
 .motivation-card {
   background: var(--accent-soft);
-  padding: 20px;
-  border-radius: 14px;
-
-  color: var(--text-dark);
-  font-size: 18px;
-  font-weight: 600;
-
   border-left: 6px solid var(--secondary);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+  font-size: 16px;
+  font-weight: 600;
 }
 
-
-/* titolo interno MY MAIN FOCUS TODAY */
 .motivation-card p {
+  margin-top: 8px;
   font-size: 15px;
   font-weight: 700;
-  margin: 10px 0 0;
   color: var(--primary);
 }
 
-
-/* ===== MAIN FOCUS CARD ===== */
-
+/* Card contenitore del main focus */
 .main-focus-card {
-  background: white;
-  padding: 18px 20px;
-  border-radius: 14px;
-  border: 1px solid var(--divider);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-
   font-size: 16px;
   font-weight: 600;
   color: var(--text-dark);
@@ -417,65 +296,265 @@ p {
 
 .main-focus-card div {
   margin-top: 10px;
+  padding: 10px 12px;
+  background: var(--secondary);
+  border-radius: 10px;
+  color: #222;
   font-size: 15px;
   font-weight: 500;
-
-  background: var(--secondary);
-  padding: 10px 12px;
-  border-radius: 10px;
-  color: #2A2A2A;
 }
 
 
-/* ===== PROFILE SCREEN ===== */
+/* ============================================================
+   FOCUS SCREEN
+   ============================================================ */
 
-.profile-content {
-  padding: 24px 18px;
+.focus-header-card {
+  margin-bottom: 14px;
+}
+
+.focus-header-card p {
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Singolo focus item */
+.focus-div {
+  background: var(--white);
+  border-radius: 12px;
+  border: 1px solid var(--divider);
+  box-shadow: var(--shadow-soft);
+
+  padding: 10px 12px;
+  margin-bottom: 12px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+    position: relative;
+  padding-right: 60px;  /* spazio per i bottoni */
+}
+
+.focus-div.active {
+  background: var(--accent-soft);
+}
+
+.focus-div.main {
+  border-left: 4px solid var(--primary);
+}
+
+/* Testo del focus */
+.focus-div p {
+  flex: 1;
+  font-size: 15px;
+}
+
+/* Colonna azioni (🔥 e -) */
+.focus-actions {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  padding: 20px 18px 20px; /* spazio per la nav bar */
+  gap: 6px;
+    margin-left: auto;     /* 🔥 spinge tutto a destra */
+
 }
 
 
-/* ===== USERNAME INPUT AREA ===== */
+/* Pulsanti dentro la colonna azioni */
+.main-focus-button,
+.focus-remove-button {
+  width: 28px;
+  height: 28px;
+  border-radius: 6px;
+  border: 1px solid var(--divider);
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+
+/* Toggle "Tap to complete" */
+.toggle-completion {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 8px 16px;
+  border-radius: 999px;
+
+  background: #fff;
+  color: var(--text-light);
+  font-size: 13px;
+
+  cursor: pointer;
+  margin-right: 4px;
+  white-space: nowrap;
+
+  border: 1px solid var(--divider);
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.toggle-completion.active {
+  background: var(--secondary);
+  color: #222;
+  border-color: var(--secondary);
+  font-weight: 600;
+}
+
+
+/* ============================================================
+   EXPLORE — MACRO AREAS
+   ============================================================ */
+
+.explore-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Bottoni macro area */
+.macro-button {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--divider);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.06);
+
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-dark);
+
+  border-left: 6px solid var(--primary);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.macro-button:active {
+  transform: scale(0.97);
+  background: rgba(38,15,240,0.06);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+
+/* ============================================================
+   SUBAREAS
+   ============================================================ */
+
+.subsections-content {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Bottoni sub area */
+.subarea-button {
+  background: var(--white);
+  border-radius: 16px;
+  border: 1px solid var(--divider);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.06);
+
+  width: 100%;
+  padding: 16px;
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-dark);
+
+  border-left: 6px solid var(--secondary);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+}
+
+.subarea-button:active {
+  transform: scale(0.97);
+  background: rgba(214,255,121,0.18);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+
+/* ============================================================
+   ACTIONS SCREEN
+   ============================================================ */
+
+.actions-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.action-div {
+  background: var(--white);
+  border-radius: var(--card-radius);
+  border: 1px solid var(--divider);
+  box-shadow: var(--shadow-soft);
+  padding: var(--padding);
+  border-left: 5px solid var(--primary);
+}
+
+.action-div p {
+  margin-bottom: 10px;
+}
+
+.action-div button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 12px;
+  border: none;
+  background: var(--primary);
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.action-div button:active {
+  background: var(--primary-hover);
+}
+
+
+/* ============================================================
+   PROFILE SCREEN
+   ============================================================ */
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
 
 .username-input {
   width: 100%;
   padding: 14px 16px;
-  font-size: 16px;
-
-  border: 1px solid var(--primary);
   border-radius: 12px;
-
+  border: 1px solid var(--primary);
+  font-size: 16px;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
 }
-
-.username-input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(38, 15, 240, 0.15);
-}
-
-
-/* Bottone “Choose UserName” */
 
 .username-selection {
-  margin-top: 8px;
   width: 100%;
+  padding: 14px 20px;
+  border-radius: 12px;
+  border: none;
   background: var(--primary);
   color: white;
-
-  border: none;
-  padding: 14px 20px;
-
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 600;
-  border-radius: 12px;
-
   cursor: pointer;
-  transition: background-color 0.1s ease;
 }
 
 .username-selection:active {
@@ -483,43 +562,27 @@ p {
 }
 
 
-/* ===== STATS SECTION ===== */
+/* ============================================================
+   STATS
+   ============================================================ */
 
 .stats-content {
-  padding: 24px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 20px 18px 20px; /* extra spazio */
+  margin-top: 16px;
 }
 
 .stats-card {
-  background: white;
-  padding: 20px 22px;
-  border-radius: 14px;
+  background: var(--white);
+  border-radius: var(--card-radius);
   border: 1px solid var(--divider);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-
-  font-size: 15px;
-  color: var(--text-dark);
-
+  box-shadow: var(--shadow-soft);
+  padding: var(--padding);
   display: flex;
   flex-direction: column;
-  gap: 10px;
-
-  margin: 0; /* 👈 IMPORTANTE */
-}
-
-.stats-card p {
-  margin: 0;
-  font-weight: 500;
+  gap: 8px;
 }
 
 .stats-card p:first-child {
   font-size: 17px;
   font-weight: 700;
   color: var(--primary);
-  margin-bottom: 8px;
 }
-
-
