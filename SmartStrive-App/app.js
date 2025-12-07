@@ -2,9 +2,9 @@
 
 //buttons
 const homeButton = document.querySelector('.js-home-button');
-const exploreButton = document.querySelectorAll('.js-explore-button');
-const focusButton = document.querySelectorAll('.js-focus-button');
-const profileButton = document.querySelectorAll('.js-profile-button');
+const exploreButton = document.querySelector('.js-explore-button');
+const focusButton = document.querySelector('.js-focus-button');
+const profileButton = document.querySelector('.js-profile-button');
 const selectUserName = document.querySelector('.js-username-selection');
 const backButton = document.querySelector('.js-back-button');
 
@@ -83,29 +83,26 @@ if (!onboardingCompleted) {
     }
   );
   
-  exploreButton.forEach(button => 
-    button.addEventListener('click', () => {
-      setActive(button);
+  exploreButton.addEventListener('click', () => {
+      setActive(exploreButton);
       changeScreen(exploreScreen);
       renderExploreScreen();
     }
-  ));
+  );
   
-  focusButton.forEach(button => 
-    button.addEventListener('click', () => {
-      setActive(button);
+  focusButton.addEventListener('click', () => {
+      setActive(focusButton);
       changeScreen(focusScreen);
       updateMyFocus();
     }
-  ));
+  );
   
-  profileButton.forEach(button => 
-    button.addEventListener('click', () => {
-      setActive(button);
+  profileButton.addEventListener('click', () => {
+      setActive(profileButton);
       changeScreen(profileScreen);
       renderProfileScreen();
   }
-));
+);
 
 //switch active classes nav buttons and screens
 function setActive(button) {
@@ -303,7 +300,7 @@ function updateMyFocus() {
       const numberCompleted = myFocus.filter(item => item.done).length;
 
       dailyProgress.percentageCompleted =
-      myFocus.length === 0 ? 0 : numberCompleted / myFocus.length;
+      myFocus.length === 0 ? 0 : Math.round((numberCompleted / myFocus.length*100));
 
       dailyProgress.completed = numberCompleted;
 
@@ -528,7 +525,7 @@ function renderProfileScreen(){
     dailyStreakDaysText.textContent = `You are on a ${dailyProgress.dailyStreakDays} days streak of completed tasks!`
 
   const percentageCompletedText = document.createElement('p');
-    percentageCompletedText.textContent = `You have completed ${dailyProgress.percentageCompleted*100}% of your daily tasks!`
+    percentageCompletedText.textContent = `You have completed ${dailyProgress.percentageCompleted}% of your daily tasks!`
 
   statsCard.appendChild(statsTitle);
   statsCard.appendChild(completedText);
