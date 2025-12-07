@@ -25,12 +25,8 @@ let subAreaContent = document.querySelector('.js-subsections-content');
 const actionsScreen = document.querySelector('.js-actions-screen');
 let actionsContent = document.querySelector('.js-actions-content');
 
-
-//my focus content
-
+//variables
 const myFocus = JSON.parse(localStorage.getItem('focus')) || [];
-
-
 
 const completedHistory = JSON.parse(localStorage.getItem('history')) || [];
 
@@ -76,11 +72,6 @@ if (!onboardingCompleted) {
 
 //event listeners buttons
 
-function setActive(button) {
-  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
-  button.classList.add('active');
-}
-
 homeButton.forEach(button => 
     button.addEventListener('click', () => {
       setActive(button);
@@ -113,9 +104,11 @@ homeButton.forEach(button =>
   }
 ));
 
-
-
-//function screen buttons
+//switch active classes nav buttons and screens
+function setActive(button) {
+  document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+  button.classList.add('active');
+}
 
 function changeScreen(screen){
   allScreens.forEach(s => {
@@ -187,7 +180,7 @@ onboardingContent.appendChild(onboardingCard)
 function updateHomeScreen() {
 
   let userName = localStorage.getItem('username') || '';
-const mainFocus = myFocus.filter(focus => focus.main === true)
+  const mainFocus = myFocus.filter(focus => focus.main === true)
 
   const logoCard = document.createElement('div');
   logoCard.classList.add('title-card');
@@ -229,7 +222,7 @@ const mainFocus = myFocus.filter(focus => focus.main === true)
 }
 
 
-//my focus updating
+//my focus screen update function
 
 function updateMyFocus() {
 
@@ -257,107 +250,107 @@ function updateMyFocus() {
 
 
   if (myFocus.length !== 0) {
-  myFocus.forEach((focus,index) => {
-  const focusCard = document.createElement('div');
-  focusCard.classList.add('focus-div')
- 
-
-  const focusText = document.createElement('p');
-  focusText.textContent = (focus.text)
-
-  const focusButton = document.createElement('button');
-   focusButton.textContent = ('-')
-   focusButton.classList.add('focus-remove-button', 'secondary-button')
-
-  const mainFocusButton = document.createElement('button');
-  mainFocusButton.textContent = ('🔥');
-  mainFocusButton.classList.add('main-focus-button', 'secondary-button');
+    myFocus.forEach((focus,index) => {
+    const focusCard = document.createElement('div');
+    focusCard.classList.add('focus-div')
   
-  
-const toggleCompletion = document.createElement('div');
-  toggleCompletion.classList.add('toggle-completion')
-  if (focus.done) toggleCompletion.classList.add('active')
-  
-  toggleCompletion.textContent = focus.done? '✔' : 'Tap to complete';
 
-  toggleCompletion.addEventListener('click', () => {
-    focus.done = !focus.done;
+    const focusText = document.createElement('p');
+    focusText.textContent = (focus.text)
 
-    if (focus.done) {
-      toggleCompletion.classList.add('active')
-      focusCard.classList.add('active')
-    } else {
-      toggleCompletion.classList.remove('active')
-      focusCard.classList.remove('active')
-    };
+    const focusButton = document.createElement('button');
+    focusButton.textContent = ('-')
+    focusButton.classList.add('focus-remove-button', 'secondary-button')
 
+    const mainFocusButton = document.createElement('button');
+    mainFocusButton.textContent = ('🔥');
+    mainFocusButton.classList.add('main-focus-button', 'secondary-button');
+    
+    
+    const toggleCompletion = document.createElement('div');
+    toggleCompletion.classList.add('toggle-completion')
+    if (focus.done) toggleCompletion.classList.add('active')
+    
     toggleCompletion.textContent = focus.done? '✔' : 'Tap to complete';
-    const numberCompleted = myFocus.filter(item => item.done).length;
 
-    dailyProgress.percentageCompleted =
-    myFocus.length === 0 ? 0 : numberCompleted / myFocus.length;
+    toggleCompletion.addEventListener('click', () => {
+      focus.done = !focus.done;
 
-    dailyProgress.completed = numberCompleted;
+      if (focus.done) {
+        toggleCompletion.classList.add('active')
+        focusCard.classList.add('active')
+      } else {
+        toggleCompletion.classList.remove('active')
+        focusCard.classList.remove('active')
+      };
 
-    if (!dailyProgress.dailyStreak && numberCompleted > 0) {
-        dailyProgress.dailyStreak = true;
-        dailyProgress.dailyStreakDays++;
-    }
+      toggleCompletion.textContent = focus.done? '✔' : 'Tap to complete';
+      const numberCompleted = myFocus.filter(item => item.done).length;
 
-    if (focus.done && !completedHistory.some(item => item.id === focus.id)) completedHistory.push(focus);
+      dailyProgress.percentageCompleted =
+      myFocus.length === 0 ? 0 : numberCompleted / myFocus.length;
 
-    localStorage.setItem('focus', JSON.stringify(myFocus));
-    localStorage.setItem('daily', JSON.stringify(dailyProgress));
-    localStorage.setItem('history', JSON.stringify(completedHistory));  
-  })
+      dailyProgress.completed = numberCompleted;
 
-  if (focus.done) focusCard.classList.add('active');
-  else focusCard.classList.remove('active');
+      if (!dailyProgress.dailyStreak && numberCompleted > 0) {
+          dailyProgress.dailyStreak = true;
+          dailyProgress.dailyStreakDays++;
+      }
 
-  if (focus.main) focusCard.classList.add("main");
-  else focusCard.classList.remove("main");
+      if (focus.done && !completedHistory.some(item => item.id === focus.id)) completedHistory.push(focus);
 
+      localStorage.setItem('focus', JSON.stringify(myFocus));
+      localStorage.setItem('daily', JSON.stringify(dailyProgress));
+      localStorage.setItem('history', JSON.stringify(completedHistory));  
+    })
 
-  const actionsContainer = document.createElement('div');
-  actionsContainer.classList.add('focus-actions');
+    if (focus.done) focusCard.classList.add('active');
+    else focusCard.classList.remove('active');
 
-  actionsContainer.appendChild(mainFocusButton);
-  actionsContainer.appendChild(focusButton);
-
-  focusCard.appendChild(actionsContainer);
-
-
-   focusCard.appendChild(toggleCompletion);
-   focusCard.appendChild(focusText);
-   focusCard.appendChild(mainFocusButton);
-   focusCard.appendChild(focusButton);
-
-   focusContent.appendChild(focusCard);
+    if (focus.main) focusCard.classList.add("main");
+    else focusCard.classList.remove("main");
 
 
-   mainFocusButton.addEventListener('click', () => {
-    focus.main = !focus.main;
+    const actionsContainer = document.createElement('div');
+    actionsContainer.classList.add('focus-actions');
 
-    focus.main? focusCard.classList.add('main-active')
-    : focusCard.classList.remove('main-active');
+    actionsContainer.appendChild(mainFocusButton);
+    actionsContainer.appendChild(focusButton);
 
-    localStorage.setItem('focus', JSON.stringify(myFocus))
-    updateMyFocus()    
-  })
+    focusCard.appendChild(actionsContainer);
 
-  if (focus.main) focusCard.classList.add('main-active');
 
-   focusButton.addEventListener('click', () =>{
-    myFocus.splice(index, 1);
-    localStorage.setItem('focus', JSON.stringify(myFocus))
-     updateMyFocus();
-   })
-})} else {
+    focusCard.appendChild(toggleCompletion);
+    focusCard.appendChild(focusText);
+    focusCard.appendChild(mainFocusButton);
+    focusCard.appendChild(focusButton);
 
-  const placeHolderText = document.createElement('p');
-  placeHolderText.textContent = ('Add a focus and start changing your life!');
+    focusContent.appendChild(focusCard);
 
-  focusContent.appendChild(placeHolderText);
+
+    mainFocusButton.addEventListener('click', () => {
+      focus.main = !focus.main;
+
+      focus.main? focusCard.classList.add('main-active')
+      : focusCard.classList.remove('main-active');
+
+      localStorage.setItem('focus', JSON.stringify(myFocus))
+      updateMyFocus()    
+    })
+
+    if (focus.main) focusCard.classList.add('main-active');
+
+    focusButton.addEventListener('click', () =>{
+      myFocus.splice(index, 1);
+      localStorage.setItem('focus', JSON.stringify(myFocus))
+      updateMyFocus();
+    })
+  })} else {
+
+    const placeHolderText = document.createElement('p');
+    placeHolderText.textContent = ('Add a focus and start changing your life!');
+
+    focusContent.appendChild(placeHolderText);
 }}
 
 
