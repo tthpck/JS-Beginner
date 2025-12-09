@@ -1,4 +1,4 @@
-
+import { areaDatabase} from "./database";
 
 //buttons
 const homeButton = document.querySelector('.js-home-button');

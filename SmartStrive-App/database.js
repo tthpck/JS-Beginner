@@ -1,4 +1,4 @@
-const areaDatabase = {
+export const areaDatabase = {
   "Work & Career": [
     "Career Growth",
     "Deep Work & Focus",
