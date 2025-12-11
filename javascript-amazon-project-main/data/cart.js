@@ -10,6 +10,7 @@ export function addToCart(productId){
         cart.push({
         productId: productId,
         quantity: 1,
+        deliveryOptionId: '2',
       })}
       saveToStorage();
 };
@@ -43,3 +44,14 @@ export function calculateCartQuantity(){
 
 }
     
+
+export function updateQuantity(productId, newQuantity) {
+          cart.forEach((cartItem) => {
+            if (cartItem.productId === productId) {
+              cartItem.quantity = newQuantity;
+            }
+          })
+          saveToStorage();
+}
+
+
