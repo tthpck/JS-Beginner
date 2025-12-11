@@ -55,3 +55,11 @@ export function updateQuantity(productId, newQuantity) {
 }
 
 
+export function updateDeliveryOption(productId, deliveryOptionId){
+     let matchingItem = cart.find(cartItem => cartItem.productId === productId);
+
+     matchingItem.deliveryOptionId = deliveryOptionId;
+
+     saveToStorage();
+
+}
