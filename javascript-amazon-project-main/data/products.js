@@ -1,7 +1,54 @@
+import {formatCurrency} from '../scripts/utils/money.js'
+
 export function getProduct(productId){
           const matchingProduct = products.find(product => product.id === productId);
           return matchingProduct;
        }
+
+
+
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor(productDetails){
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+  }
+  
+  getStarsUrl() {
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+
+  getPrice(){
+    return `$${formatCurrency(this.priceCents)}`
+  }
+
+  extraInfoHTML(){
+    return '';
+  }
+}
+
+class Clothing extends Product{
+  sizeChartLink;
+
+  constructor(productDetails){
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(){
+    return `<a href = "${this.sizeChartLink}" target = "_blank">
+    Size Chart
+    </a>`
+  }
+}
 
 
 export const products = [
@@ -663,4 +710,36 @@ export const products = [
       "mens"
     ]
   }
-];
+].map(productDetails => {
+  if (productDetails.type === 'clothing') {return new Clothing(productDetails)}
+  return new Product(productDetails)});
+
+
+
+
+  /*
+  const date = new Date();
+
+  console.log(date)
+  console.log(date.toLocaleTimeString());
+  
+
+
+  function logThis() {
+    console.log(this);
+  }
+
+  logThis() //questo da undefined xk this non è definito
+
+  logThis.call('this');  //permette di passare un argument al posato di this
+
+
+  const object3 = {
+    method: () => {
+      console.log(this) //anche qui è undefined perchè ARROW FUNCTIONS NON CAMBIANO THIS
+    }
+  }
+
+  object3.method();
+  
+  */
