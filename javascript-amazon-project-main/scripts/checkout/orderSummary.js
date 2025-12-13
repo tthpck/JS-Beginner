@@ -11,6 +11,7 @@ export function renderOrderSummary () {
   let cartSummaryHTML = '';
 
 
+
   cart.forEach(cartItem =>{
     
     const productId = cartItem.productId
@@ -87,6 +88,7 @@ export function renderOrderSummary () {
     });
   })
 
+
   function updateCartQuantity () {
         const cartQuantity = calculateCartQuantity();
 
@@ -94,9 +96,7 @@ export function renderOrderSummary () {
               href="amazon.html">${cartQuantity} items</a>)`;
         
       }
-
-
-
+  updateCartQuantity();
 
       document.querySelectorAll('.js-update-quantity-link').forEach((link) => {
         link.addEventListener('click', () => {

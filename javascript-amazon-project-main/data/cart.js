@@ -1,5 +1,8 @@
 export let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
+
+
+
 export function addToCart(productId){
 
       let matchingItem = cart.find(cartItem => cartItem.productId ===productId)//codice diverso dal corso (questo piu breve)
