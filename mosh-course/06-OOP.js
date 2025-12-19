@@ -131,8 +131,35 @@ console.log(human)
 
 
 
+function HtmlElement(){
+  this.click = function(){console.log('click')}
+}
 
-const e = new HTMLElement()
+HtmlElement.prototype.focus = function(){console.log('focus')}
 
 
-const s = new HTMLSelectElement()
+const e = new HtmlElement()
+
+e.click();
+e.focus();
+
+
+function HtmlSelectElement(arr = []){
+  this.arr = arr;
+}
+
+HtmlSelectElement.prototype = new HtmlElement()
+HtmlSelectElement.prototype.constructor = HtmlSelectElement;
+
+HtmlSelectElement.prototype.addItem = function(i){this.arr.push(i)};
+HtmlSelectElement.prototype.removeItem = function(i){this.pop(i)};
+
+
+
+
+const h = new HtmlSelectElement();
+
+console.log(h)
+h.addItem(1)
+
+console.log(h.arr)
