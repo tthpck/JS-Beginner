@@ -90,3 +90,124 @@ Circle.prototype.draw = function(){
 const c1 = new Circle(10)
 
 console.log(c1.draw())
+
+
+
+function mixin(targetObject, ...members){
+  Object.assign(targetObject, ...members)
+}
+
+const canEat = {
+  eat: function(){
+    console.log('is eating');
+  }
+};
+
+const canWalk = {
+  walk: function(){
+    console.log('walks');
+  }
+};
+
+const canSwim = {
+  swim: function(){
+    console.log(`${this.name} swims`);
+  }
+};
+
+function Person(name){
+  this.name = name;
+};
+
+function Fish(name){
+  this.name = name;
+};
+
+mixin(Person.prototype, canEat, canWalk, canSwim);
+
+mixin(Fish.prototype, canEat, canSwim);
+
+const p1 = new Person('marco');
+const f1 = new Fish('nemo');
+
+p1.walk();
+p1.swim();
+p1.eat();
+
+f1.swim()
+
+
+
+const creation = {
+  createdAt: function(){
+    console.log(`created on ${Date.now()}`)
+  }
+}
+function Note(){};
+
+Object.assign(Note.prototype, creation);
+
+const n1 = new Note();
+
+n1.createdAt();
+
+
+
+
+function HasScore(targetObject){
+  let score = 0;
+  let isSet = false
+
+  Object.defineProperty(targetObject, 'score', {
+    get(){
+      return score;
+  }, set(newScore){
+    if(!isSet)
+    {score = newScore;
+    isSet = true};
+  }})
+};
+
+function Game(){
+  HasScore(this)
+};
+
+function Match(){
+  HasScore(this)
+};
+
+const g = new Game();
+
+const m = new Match();
+
+g.score = 10;
+console.log(g.score)
+
+g.score = 5;
+console.log(g.score)
+
+m.score = 10;
+console.log(m.score)
+
+m.score = 5;
+console.log(m.score)
+
+
+
+const canSave = {
+  save: function(){
+    console.log(`saved ${this.id}`)
+  }
+}
+
+function Note(id){
+  this.id = id
+}
+
+Object.assign(Note.prototype, canSave)
+
+const n3 = new Note('id123');
+const n4 = new Note('id124');
+
+n3.save();
+n4.save();
