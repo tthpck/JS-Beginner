@@ -6,6 +6,7 @@ const state = JSON.parse(localStorage.getItem('state')) || {
   answersRecord: [],
   gameType: '',
   gameLevel: '',
+  lastResult: 0,
 }
 
 // da fare renderHomeSCreen renderLevelScreen e renderQuizScreen
@@ -40,7 +41,6 @@ function userNameSelection(){
     userSelButton.addEventListener('click', ()=> {
       userSelInput.classList.remove('hidden');
       setState({nameStatus: 'editing'});
-      render();
     })
   } else if (state.nameStatus === 'editing'){
     userSelButton.textContent = 'MI CHIAMO';
@@ -48,14 +48,12 @@ function userNameSelection(){
     userSelButton.addEventListener('click', () => {
       userSelInput.classList.add('hidden');
       setState({playerName: (userSelInput.value).toUpperCase(), nameStatus: 'confirmed'});
-      render();
     })
   } else if (state.nameStatus === 'confirmed'){
     userSelButton.textContent = `CIAO ${state.playerName}, VUOI CAMBIARE NOME?`;
     userSelButton.addEventListener('click', () => {
       userSelInput.classList.remove('hidden');
       setState({nameStatus: 'editing'});
-      render();
     })
   }  
 }
@@ -120,76 +118,134 @@ function renderLevelScreen(game) {
 
     document.querySelector('.js-back-home').addEventListener('click', () =>{
       setState({screen: 'home', gameType: ''});
-      render();
     });
 
     document.querySelectorAll('.js-difficulty-button').forEach(button => {
       button.addEventListener('click', () => {
         setState({screen: 'quiz', gameLevel: button.value});
-        renderQuizScreen()
       })
     })
 
 }
 
 function renderQuizScreen() {
-  document.querySelector('.js-full-screen').innerHTML =         `
+  renderQuizLayout()
+  renderGame();
+  assignQuizEvents();
+  
+}
+
+//=========================RENDER GAME==========================//
+function renderGame(){
+  const game = document.querySelector('.js-game');
+  const difficulty = state.gameLevel;
+
+  const gameData = startGame();
+
+  game.innerHTML = `
+    <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType1}_number_${gameData.number1}.png">
+
+    <img class = "game-images" src = "./images/${difficulty}/sign_${gameData.sign}.png">
+
+    <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType2}_number_${gameData.number2}.png">
+  `;
+}
+
+//=========================ASSIGN QUIZ EVENTS==========================//
+function assignQuizEvents(){
+  document.querySelector('.js-back-level').addEventListener('click', () =>{
+    setState({screen: state.gameType});
+  });
+
+  const input = document.querySelector('.js-calc-input');
+
+
+  document.querySelectorAll('.js-calc-button')
+    .forEach(button => {
+      button.addEventListener('click', () =>{
+        input.value += button.value
+      })
+    })
+
+  document.querySelector('.js-delete-input').addEventListener('click', ()=>{
+    input.value = ''
+  })
+
+  function checkResult(){
+    if (Number(input.value) === state.lastResult) {
+      document.querySelector('.js-game').innerHTML = 'GIUSTO' // da cambiare e mettere immagine sbagliato
+    } else {
+      document.querySelector('.js-game').innerHTML = 'SBAGLIAT' // da cambiare e mettere immagine sbagliato
+    }
+  };
+
+  document.querySelector('.js-enter').addEventListener('click', () => checkResult())
+}
+
+//=========================RENDER QUIZ LAYOUT==========================//
+function renderQuizLayout(){
+  document.querySelector('.js-full-screen').innerHTML =         
+    `
     <div class = "screen js-screen-quiz">
       <div>
           <h2>QUALE E' IL RISULTATO DI:</h2>
             <div class = "js-game">
             </div>
               <br>
-              <input>
+              <input class = "js-calc-input calc-input">
               <br>
-          <button> 7</button>
-          <button> 8</button>
-          <button> 9</button>
+          <button class= "js-enter enter">INVIO</button>
           <br>
-          <button> 4</button>
-          <button> 5</button>
-          <button> 6</button>
+            <button class = "js-calc-button calc-button" value = "7">7</button>
+            <button class = "js-calc-button calc-button" value = "8">8</button>
+            <button class = "js-calc-button calc-button" value = "9">9</button>
+            <br>
+            <button class = "js-calc-button calc-button" value = "4">4</button>
+            <button class = "js-calc-button calc-button" value = "5">5</button>
+            <button class = "js-calc-button calc-button" value = "6">6</button>
+            <br>
+            <button class = "js-calc-button calc-button" value = "1">1</button>
+            <button class = "js-calc-button calc-button" value = "2">2</button>
+            <button class = "js-calc-button calc-button" value = "3">3</button>
           <br>
-          <button> 1</button>
-          <button> 2</button>
-          <button> 3</button>
-          <br>
-          <button>INVIO</button>
+          <button class ="js-delete-input delete-input">CANCELLA</button>
       </div>
       <button class = "js-back-level">INDIETRO</button>
-    </div>`;
-
-  document.querySelector('.js-back-level').addEventListener('click', () =>{
-      setState({screen: state.gameType});
-      render();
-  });
-    
-  startGame()
+    </div>
+    `;
 
 }
 
-
+//start Game da aggiungere piu opzioni alle immagini
 function startGame(){
 
-  const difficulty = state.gameLevel;
-  const game = document.querySelector('.js-game');
-  const sign = Math.floor(Math.random()*2)+1;
 
   const imgType1 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
-  const imgNumber1 = Math.floor(Math.random()*2)+1 //min 0 max 9
-
   const imgType2 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
-  const imgNumber2 = Math.floor(Math.random()*2)+1 //min 0 max 9
 
-  game.innerHTML = `
-    <img class = "game-images" src="./images/${difficulty}/type_${imgType1}_number_${imgNumber1}.png">
-  
-    <img class = "game-images" src = "./images/${difficulty}/sign_${sign}.png">
+  let sign = Math.floor(Math.random()*2)+1;
+  let number1 = Math.floor(Math.random()*2)+1 //min 0 max 2
+  let number2 = Math.floor(Math.random()*2)+1 //min 0 max 2
 
-    <img class = "game-images" src="./images/${difficulty}/type_${imgType2}_number_${imgNumber2}.png">
+  if (sign === 2 && number2 > number1){
+      [number1, number2] = [number2, number1]
+    }
   
-  `
-}
+  let result = (sign === 1)? Number(number1 + number2) : (number1 - number2)
+
+  Object.assign(state, {lastResult: result});
+
+    return {
+      imgType1, 
+      imgType2, 
+      sign, 
+      number1, 
+      number2, 
+      result,
+    }
+
+};
+
 
 render()
 
