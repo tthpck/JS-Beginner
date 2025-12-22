@@ -128,6 +128,7 @@ function renderLevelScreen(game) {
 
 }
 
+//=========================RENDER QUIZ SCREEN==========================//
 function renderQuizScreen() {
   renderQuizLayout()
   renderGame();
@@ -216,7 +217,7 @@ function renderQuizLayout(){
 
 }
 
-//start Game da aggiungere piu opzioni alle immagini
+//=========================START GAME==========================//
 function startGame(){
 
 
