@@ -1,0 +1,85 @@
+/*-----------------MAIN ELEMENTS--------------------------------------------*/
+
+body {
+  font-family: 'Baloo 2';
+  background-color: rgb(255, 242, 244);
+  background: linear-gradient(180deg, #fff2f4, #f0f6ff);
+  padding: 40px 16px;
+}
+
+h1 {
+  font-size: 2.8em;
+  color: hsl(225, 100%, 65%);
+}
+
+h2 {
+  font-size: 1.8em;
+  color: hsl(346, 100%, 72%);
+}
+
+div {
+  position:inherit;;
+  text-align: center;
+}
+
+/*-----------------SCREENS--------------------------------------------*/
+
+.screen {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  margin: 40px auto;
+  max-width: 700px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+}
+
+
+.hidden{
+  display: none;
+}
+
+.game-images {
+  width: 50px;
+}
+
+/*-----------------BUTTONS HOMEPAGE--------------------------------------------*/
+
+.user-selection{
+  border: none;
+  border-radius: 16px;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 600;
+  font-size: 1.4em;
+  padding: 16px 24px;
+  margin: 12px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  background: #7b6cff;
+  color: white;
+
+
+}
+
+.user-selection:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
+
+.game-type{
+  border: none;
+  border-radius: 16px;
+  font-family: 'Baloo 2', cursive;
+  font-weight: 600;
+  font-size: 1.4em;
+  padding: 16px 24px;
+  margin: 12px;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  background: #7b6cff;
+  color: white;
+}
+
+.game-type:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+}
