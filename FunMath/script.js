@@ -13,7 +13,7 @@ const state = JSON.parse(localStorage.getItem('state')) || {
 
 
 
-//render FINITO - se non si cambia nulla
+//render da aggiornare per count
 function render(){
   if(state.screen === 'home') {
     renderHomeScreen();
@@ -23,18 +23,23 @@ function render(){
     renderQuizScreen();}
 }
 
-//update state -- finito
+//=========================UPDATE STATE==========================//
 function setState(patch){
-  Object.assign(state, patch)
-  localStorage.setItem('state', JSON.stringify(state))
+  Object.assign(state, patch);
+  localStorage.setItem('state', JSON.stringify(state));
   render();
 }
 
-//username selection FINITO
+//=========================USERNAME SELECTION==========================//
 function userNameSelection(){
   const userSelButton = document.querySelector('.js-user-name-selection');
   const userSelInput = document.querySelector('.js-user-name-input');
 
+  userSelInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter'){
+        setState({playerName: (userSelInput.value).toUpperCase(), nameStatus: 'confirmed'});
+    };
+  });
 
   if (!state.nameStatus){
     userSelButton.textContent = `COME TI CHIAMI?`;
@@ -43,7 +48,7 @@ function userNameSelection(){
       setState({nameStatus: 'editing'});
     })
   } else if (state.nameStatus === 'editing'){
-    userSelButton.textContent = 'MI CHIAMO';
+    userSelButton.textContent = 'OK';
     userSelInput.classList.remove('hidden');
     userSelButton.addEventListener('click', () => {
       userSelInput.classList.add('hidden');
@@ -69,7 +74,7 @@ function gameSelection(){
   });
 }
 
-
+//render jhome screen selection da rivedere forse
 function renderHomeScreen() {
 
     document.querySelector('.js-full-screen').innerHTML = 
@@ -77,7 +82,7 @@ function renderHomeScreen() {
         <div><h1>BENVENUTA A FUNMATH ${state.playerName}!</h1></div>
             <div>
                 <button class = "js-user-name-selection user-selection"></button>
-                <input type = "text-box" class = " js-user-name-input hidden">
+                <input type = "text-box" class = " js-user-name-input hidden" placeholder = "MI CHIAMO">
             </div>
                 
         <div><h2>A COSA VUOI GIOCARE OGGI?</h2></div>
@@ -100,7 +105,7 @@ function renderHomeScreen() {
 }
 
 
-
+//render level screen selection da rivedere forse
 function renderLevelScreen(game) {
         
   document.querySelector('.js-full-screen').innerHTML = 
@@ -133,7 +138,6 @@ function renderQuizScreen() {
   renderQuizLayout()
   renderGame();
   assignQuizEvents();
-  
 }
 
 //=========================RENDER GAME==========================//
@@ -160,7 +164,9 @@ function assignQuizEvents(){
 
   const input = document.querySelector('.js-calc-input');
 
-
+  input.addEventListener('keyup', event => {
+    if (event.key === 'Enter'){checkResult()}
+  })
   document.querySelectorAll('.js-calc-button')
     .forEach(button => {
       button.addEventListener('click', () =>{
@@ -173,12 +179,28 @@ function assignQuizEvents(){
   })
 
   function checkResult(){
-    if (Number(input.value) === state.lastResult) {
-      document.querySelector('.js-game').innerHTML = 'GIUSTO' // da cambiare e mettere immagine sbagliato
+    const userInput = Number(input.value)
+    const gameHTML = document.querySelector('.js-game');
+
+    if (userInput === state.lastResult) {
+      gameHTML.innerHTML = `
+        <img class = "result" src = "./images/results/correct_1.png">
+        <p class = 'answer correct-answer'>${userInput} E' GIUSTO!!</p>
+        <br>
+        <button class ="js-play-again play-again">GIOCA ANCORA</button>`;
+      input.value = '';
+      Object.assign(state, {points: state.points++});
+      document.querySelector('.js-play-again').addEventListener('click', () => {
+      renderGame();
+    })
     } else {
-      document.querySelector('.js-game').innerHTML = 'SBAGLIAT' // da cambiare e mettere immagine sbagliato
-    }
+      gameHTML.innerHTML += `
+      <img class ="result" src ="./images/results/incorrect_1.png">
+      <p class = 'answer incorrect-answer'>${userInput} E' SBAGLIATO</p> 
+      `;
+    };
   };
+
 
   document.querySelector('.js-enter').addEventListener('click', () => checkResult())
 }

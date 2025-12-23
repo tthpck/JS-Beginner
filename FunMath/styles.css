@@ -78,3 +78,27 @@ input{
   font-size: 1.4em;
   font-weight: bold;
 }
+
+
+/*-----------------ANSWERS FEEDBACK--------------------------------------------*/
+
+.answer{
+  font-size: 1.8em;
+  font-weight: bold;
+  color: hsl(346, 100%, 72%);
+}
+
+.correct-answer{
+  color: greenyellow;
+}
+
+.incorrect-answer{
+  color: red;
+}
+
+/*-----------------ANSWERS FEEDBACK--------------------------------------------*/
+
+.result{
+  width: 150px;
+  height: 300px;
+}
