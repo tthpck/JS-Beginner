@@ -9,11 +9,10 @@ const state = JSON.parse(localStorage.getItem('state')) || {
   lastResult: 0,
 }
 
-// da fare renderHomeSCreen renderLevelScreen e renderQuizScreen
 
 
+//=========================RENDER==========================//
 
-//render da aggiornare per count
 function render(){
   if(state.screen === 'home') {
     renderHomeScreen();
@@ -23,7 +22,7 @@ function render(){
     renderQuizScreen();}
 }
 
-//=========================UPDATE STATE==========================//
+//=========================SET STATE==========================//
 function setState(patch){
   Object.assign(state, patch);
   localStorage.setItem('state', JSON.stringify(state));
@@ -63,7 +62,7 @@ function userNameSelection(){
   }  
 }
 
-//games selection da rivedere forse
+//=========================USERNAME SELECTION==========================//
 function gameSelection(){
   const gameTypeButtons = document.querySelectorAll('.js-game-type');
 
@@ -74,7 +73,7 @@ function gameSelection(){
   });
 }
 
-//render jhome screen selection da rivedere forse
+//=========================RENDER HOMESCREEN==========================//
 function renderHomeScreen() {
 
     document.querySelector('.js-full-screen').innerHTML = 
@@ -105,7 +104,7 @@ function renderHomeScreen() {
 }
 
 
-//render level screen selection da rivedere forse
+//=========================RENDER LEVEL SCREEN==========================//
 function renderLevelScreen(game) {
         
   document.querySelector('.js-full-screen').innerHTML = 
@@ -135,29 +134,100 @@ function renderLevelScreen(game) {
 
 //=========================RENDER QUIZ SCREEN==========================//
 function renderQuizScreen() {
-  renderQuizLayout()
-  renderGame();
-  assignQuizEvents();
+  if (state.gameType === 'add-sub'){
+    renderAddSubLayout()
+    renderAddSubGame();
+    assignGamesEvents();
+  } else if (state.gameType === 'count'){
+    renderCountLayout()
+    renderCountGame()
+    assignGamesEvents()
+  }
 }
 
-//=========================RENDER GAME==========================//
-function renderGame(){
+
+//=========================RENDER COUNT LAYOUT==========================//
+function renderCountLayout(){
+      document.querySelector('.js-full-screen').innerHTML = `
+        <div class = "screen js-screen-quiz">
+      <div>
+          <h2>CONTA QUANTE SONO</h2>
+            <div class = "js-game">
+            </div>
+              <br>
+              <input class = "js-calc-input calc-input">
+              <br>
+          <button class= "js-enter enter">INVIO</button>
+          <br>
+            <button class = "js-calc-button calc-button" value = "7">7</button>
+            <button class = "js-calc-button calc-button" value = "8">8</button>
+            <button class = "js-calc-button calc-button" value = "9">9</button>
+            <br>
+            <button class = "js-calc-button calc-button" value = "4">4</button>
+            <button class = "js-calc-button calc-button" value = "5">5</button>
+            <button class = "js-calc-button calc-button" value = "6">6</button>
+            <br>
+            <button class = "js-calc-button calc-button" value = "1">1</button>
+            <button class = "js-calc-button calc-button" value = "2">2</button>
+            <button class = "js-calc-button calc-button" value = "3">3</button>
+          <br>
+          <button class ="js-delete-input delete-input">CANCELLA</button>
+      </div>
+      <button class = "js-back-level">INDIETRO</button>
+    </div>
+    `;
+}
+
+//=========================RENDER COUNT GAME==========================//
+function renderCountGame(){
+  const game = document.querySelector('.js-game');
+  const difficulty = state.gameLevel;
+
+
+  const gameData = startGame();
+
+ const countGame = [`
+    <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType1}_number_${gameData.numbers[0]}.png">`
+    ,
+    `<img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType2}_number_${gameData.numbers[1]}.png"></img>`
+    ,
+    `<img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType3}_number_${gameData.numbers[2]}.png">` 
+    ,
+    `<img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType4}_number_${gameData.numbers[3]}.png">`
+    , 
+    `<img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType5}_number_${gameData.numbers[4]}.png">`
+    , 
+    `<img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType6}_number_${gameData.numbers[5]}.png">` 
+  ];
+
+  Object.assign(state, {currentGame: countGame.slice(0,gameData.numberOfImages)
+    .join('')})
+
+  game.innerHTML = state.currentGame
+
+  
+}
+
+//=========================RENDER ADD-SUB GAME==========================//
+function renderAddSubGame(){
   const game = document.querySelector('.js-game');
   const difficulty = state.gameLevel;
 
   const gameData = startGame();
 
-  game.innerHTML = `
-    <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType1}_number_${gameData.number1}.png">
+  Object.assign(state, {currentGame: `
+    <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType1}_number_${gameData.numbers[0]}.png">
 
     <img class = "game-images" src = "./images/${difficulty}/sign_${gameData.sign}.png">
 
-    <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType2}_number_${gameData.number2}.png">
-  `;
+    <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType2}_number_${gameData.numbers[1]}.png">
+  `
+ }) 
+  game.innerHTML = state.currentGame;
 }
 
 //=========================ASSIGN QUIZ EVENTS==========================//
-function assignQuizEvents(){
+function assignGamesEvents(){
   document.querySelector('.js-back-level').addEventListener('click', () =>{
     setState({screen: state.gameType});
   });
@@ -170,7 +240,7 @@ function assignQuizEvents(){
   document.querySelectorAll('.js-calc-button')
     .forEach(button => {
       button.addEventListener('click', () =>{
-        input.value += button.value
+        input.value += button.value;
       })
     })
 
@@ -179,25 +249,29 @@ function assignQuizEvents(){
   })
 
   function checkResult(){
-    const userInput = Number(input.value)
-    const gameHTML = document.querySelector('.js-game');
+    const userInput = Number(input.value);
+    const game = document.querySelector('.js-game');
 
+    
     if (userInput === state.lastResult) {
-      gameHTML.innerHTML = `
+      game.innerHTML = `
         <img class = "result" src = "./images/results/correct_1.png">
         <p class = 'answer correct-answer'>${userInput} E' GIUSTO!!</p>
         <br>
         <button class ="js-play-again play-again">GIOCA ANCORA</button>`;
       input.value = '';
-      Object.assign(state, {points: state.points++});
+      state.points++;
+      input.classList.add('hidden');
       document.querySelector('.js-play-again').addEventListener('click', () => {
-      renderGame();
+        (state.gameType === 'add-sub')? renderAddSubGame() : renderCountGame()
+        input.classList.remove('hidden');;
     })
     } else {
-      gameHTML.innerHTML += `
+      game.innerHTML = `
       <img class ="result" src ="./images/results/incorrect_1.png">
       <p class = 'answer incorrect-answer'>${userInput} E' SBAGLIATO</p> 
-      `;
+      ` + state.currentGame;
+      input.value = '';
     };
   };
 
@@ -206,7 +280,7 @@ function assignQuizEvents(){
 }
 
 //=========================RENDER QUIZ LAYOUT==========================//
-function renderQuizLayout(){
+function renderAddSubLayout(){
   document.querySelector('.js-full-screen').innerHTML =         
     `
     <div class = "screen js-screen-quiz">
@@ -239,36 +313,58 @@ function renderQuizLayout(){
 
 }
 
-//=========================START GAME==========================//
+//=========================START GAME==========================// da migliorare con arrays imgtype
 function startGame(){
 
 
   const imgType1 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
   const imgType2 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
+  const imgType3 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
+  const imgType4 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
+  const imgType5 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
+  const imgType6 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image typess
 
   let sign = Math.floor(Math.random()*2)+1;
-  let number1 = Math.floor(Math.random()*2)+1 //min 0 max 2
-  let number2 = Math.floor(Math.random()*2)+1 //min 0 max 2
 
-  if (sign === 2 && number2 > number1){
-      [number1, number2] = [number2, number1]
-    }
+  let n1 = Math.floor(Math.random()*2)+1 //min 0 max 2
+  let n2 = Math.floor(Math.random()*2)+1 //min 0 max 2
+  let n3 = Math.floor(Math.random()*2)+1 //min 0 max 2
+  let n4 = Math.floor(Math.random()*2)+1 //min 0 max 2
+  let n5 = Math.floor(Math.random()*2)+1 //min 0 max 2
+  let n6 = Math.floor(Math.random()*2)+1 //min 0 max 2
+  const numbers = [n1,n2,n3,n4,n5,n6]
+
+
+  let result;
+
+  const numberOfImages = Math.floor(Math.random()*6)+1
+
+  if (state.gameType === 'add-sub' && sign === 2 && numbers[1] > numbers[0]){
+      [numbers[0], numbers[1]] = [numbers[1], numbers[0]];
+    } 
   
-  let result = (sign === 1)? Number(number1 + number2) : (number1 - number2)
+  if (state.gameType === 'add-sub'){
+    result = (sign === 1)? Number(numbers[0] + numbers[1]) : (numbers[0] - numbers[1])
+  } else {result = numbers.slice(0,numberOfImages).reduce((a,b) => a+b ,0)}
+
+
 
   Object.assign(state, {lastResult: result});
 
     return {
       imgType1, 
       imgType2, 
+      imgType3, 
+      imgType4, 
+      imgType5, 
+      imgType6, 
       sign, 
-      number1, 
-      number2, 
+      numbers,
       result,
+      numberOfImages,
     }
 
 };
 
 
 render()
-
