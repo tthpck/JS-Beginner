@@ -38,8 +38,14 @@ div {
   display: none;
 }
 
+/*-----------------IMAGES--------------------------------------------*/
 .game-images {
-  width: 50px;
+  width: 200px;
+}
+
+.sign-images{
+  width: 100px;
+  margin-bottom:50px
 }
 
 /*-----------------BUTTONS--------------------------------------------*/

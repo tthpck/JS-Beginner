@@ -186,7 +186,7 @@ function renderCountGame(){
 
   const gameData = startGame();
 
- const countGame = [`
+  const countGame = [`
     <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType1}_number_${gameData.numbers[0]}.png">`
     ,
     `<img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType2}_number_${gameData.numbers[1]}.png"></img>`
@@ -218,7 +218,7 @@ function renderAddSubGame(){
   Object.assign(state, {currentGame: `
     <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType1}_number_${gameData.numbers[0]}.png">
 
-    <img class = "game-images" src = "./images/${difficulty}/sign_${gameData.sign}.png">
+    <img class = "sign-images" src = "./images/${difficulty}/sign_${gameData.sign}.png">
 
     <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType2}_number_${gameData.numbers[1]}.png">
   `
@@ -227,7 +227,7 @@ function renderAddSubGame(){
 }
 
 //=========================ASSIGN QUIZ EVENTS==========================//
-function assignGamesEvents(){
+function assignGamesEvents(){ 
   document.querySelector('.js-back-level').addEventListener('click', () =>{
     setState({screen: state.gameType});
   });
@@ -261,6 +261,7 @@ function assignGamesEvents(){
         <button class ="js-play-again play-again">GIOCA ANCORA</button>`;
       input.value = '';
       state.points++;
+      localStorage.setItem('state',JSON.stringify(state))
       input.classList.add('hidden');
       document.querySelector('.js-play-again').addEventListener('click', () => {
         (state.gameType === 'add-sub')? renderAddSubGame() : renderCountGame()
@@ -317,27 +318,27 @@ function renderAddSubLayout(){
 function startGame(){
 
 
-  const imgType1 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
-  const imgType2 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
-  const imgType3 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
-  const imgType4 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
-  const imgType5 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image types
-  const imgType6 = Math.floor(Math.random()*2)+1 //change the multiplier each time you add image typess
+  const imgType1 = Math.floor(Math.random()*3)+1 //change the multiplier each time you add image types
+  const imgType2 = Math.floor(Math.random()*3)+1 //change the multiplier each time you add image types
+  const imgType3 = Math.floor(Math.random()*3)+1 //change the multiplier each time you add image types
+  const imgType4 = Math.floor(Math.random()*3)+1 //change the multiplier each time you add image types
+  const imgType5 = Math.floor(Math.random()*3)+1 //change the multiplier each time you add image types
+  const imgType6 = Math.floor(Math.random()*3)+1 //change the multiplier each time you add image typess
 
   let sign = Math.floor(Math.random()*2)+1;
 
-  let n1 = Math.floor(Math.random()*2)+1 //min 0 max 2
-  let n2 = Math.floor(Math.random()*2)+1 //min 0 max 2
-  let n3 = Math.floor(Math.random()*2)+1 //min 0 max 2
-  let n4 = Math.floor(Math.random()*2)+1 //min 0 max 2
-  let n5 = Math.floor(Math.random()*2)+1 //min 0 max 2
-  let n6 = Math.floor(Math.random()*2)+1 //min 0 max 2
-  const numbers = [n1,n2,n3,n4,n5,n6]
+  const n1 = (state.gameLevel === 'easy')? Math.floor(Math.random()*6)+1 : Math.floor(Math.random()*10)+1;
+  const n2 = (state.gameLevel === 'easy')? Math.floor(Math.random()*6)+1 : Math.floor(Math.random()*10)+1;
+  const n3 = (state.gameLevel === 'easy')? Math.floor(Math.random()*6)+1 : Math.floor(Math.random()*10)+1;
+  const n4 = (state.gameLevel === 'easy')? Math.floor(Math.random()*6)+1 : Math.floor(Math.random()*10)+1;
+  const n5 = (state.gameLevel === 'easy')? Math.floor(Math.random()*6)+1 : Math.floor(Math.random()*10)+1;
+  const n6 = (state.gameLevel === 'easy')? Math.floor(Math.random()*6)+1 : Math.floor(Math.random()*10)+1;
+  const numbers = [n1,n2,n3,n4,n5,n6];
 
 
   let result;
 
-  const numberOfImages = Math.floor(Math.random()*6)+1
+  const numberOfImages = Math.floor(Math.random()*6)+3
 
   if (state.gameType === 'add-sub' && sign === 2 && numbers[1] > numbers[0]){
       [numbers[0], numbers[1]] = [numbers[1], numbers[0]];
