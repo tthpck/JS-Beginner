@@ -79,6 +79,7 @@ function renderHomeScreen() {
     document.querySelector('.js-full-screen').innerHTML = 
       `<div class = "screen js-screen-home active">
         <div><h1>BENVENUTA A FUNMATH ${state.playerName}!</h1></div>
+          <img src = "./images/home_image.png" class ="home-image">
             <div>
                 <button class = "js-user-name-selection user-selection"></button>
                 <input type = "text-box" class = " js-user-name-input hidden" placeholder = "MI CHIAMO">
@@ -218,7 +219,7 @@ function renderAddSubGame(){
   Object.assign(state, {currentGame: `
     <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType1}_number_${gameData.numbers[0]}.png">
 
-    <img class = "sign-images" src = "./images/${difficulty}/sign_${gameData.sign}.png">
+    <img class = "sign-images game-images" src = "./images/${difficulty}/sign_${gameData.sign}.png">
 
     <img class = "game-images" src="./images/${difficulty}/type_${gameData.imgType2}_number_${gameData.numbers[1]}.png">
   `
@@ -255,7 +256,7 @@ function assignGamesEvents(){
     
     if (userInput === state.lastResult) {
       game.innerHTML = `
-        <img class = "result" src = "./images/results/correct_1.png">
+        <img class = "result-image" src = "./images/results/correct_1.png">
         <p class = 'answer correct-answer'>${userInput} E' GIUSTO!!</p>
         <br>
         <button class ="js-play-again play-again">GIOCA ANCORA</button>`;
@@ -269,7 +270,7 @@ function assignGamesEvents(){
     })
     } else {
       game.innerHTML = `
-      <img class ="result" src ="./images/results/incorrect_1.png">
+      <img class ="result-image" src ="./images/results/incorrect_1.png">
       <p class = 'answer incorrect-answer'>${userInput} E' SBAGLIATO</p> 
       ` + state.currentGame;
       input.value = '';
