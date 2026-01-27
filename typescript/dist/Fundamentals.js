@@ -78,4 +78,17 @@ function getCustomer(id) {
 }
 let customer = getCustomer(0);
 console.log(customer?.birthday.getFullYear());
+//NULLISH coalescing operator. Controlla se un valore e' null o undefined (invece che falsy)
+let speed = null;
+let ride = {
+    speed: speed ?? 30 //se speed non e' null o undefined allora considera speed. cosi prende anche lo 0 che invece sarebbe falsy
+};
+//TYPE assertion
+let phone = document.getElementById('phone'); // in pratica dico nello specifico che type sara' la const
+//UNKNOWN TYPE -- meglio che usare ANY perche' almeno ti forza a controllare
+function check(value) {
+    console.log(value.qualsiasiMethod()); // da errore perche' dice che il type e' unknown. quindi meglio fare type narrowing
+    if (typeof value === 'string')
+        console.log(value.toUpperCase()); // in quqesto caso va bene xk ho validato prima il type
+}
 //# sourceMappingURL=Fundamentals.js.map
